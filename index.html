@@ -935,7 +935,7 @@ body.intro-active {
   }
   #intro-screen { display: none !important; }
   #main-content { opacity: 1 !important; }
-  .eyebrow, .date-block, .venue-block, .blessing-block,
+  .eyebrow, .date-block, .venue-block,
   .infinity-svg-wrap, .rsvp-section { opacity: 1 !important; }
   .char { opacity: 1 !important; }
 }
@@ -1313,11 +1313,6 @@ body.intro-active {
         </a>
       </div>
 
-      <!-- Blessing -->
-      <div class="blessing-block" id="blessing-block">
-        <p class="blessing-text" id="blessing-text"></p>
-      </div>
-
       <!-- Bottom border -->
       <svg class="wave-divider" id="bottom-border" height="20" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true" style="margin-top:1.5rem;">
         <path id="bottom-border-path"
@@ -1400,7 +1395,7 @@ body.intro-active {
         </article>
 
         <!-- Palette card -->
-        <article class="detail-card palette-card" style="transition-delay:0.2s" aria-label="Цветовая палитра">
+        <article class="detail-card palette-card" style="transition-delay:0.2s" aria-label="Дресс-код">
           <div class="detail-card-icon" aria-hidden="true">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <circle cx="10" cy="16" r="6" fill="#C9A84C" opacity="0.9"/>
@@ -1408,31 +1403,9 @@ body.intro-active {
               <circle cx="16" cy="10" r="5" fill="#C4836A" opacity="0.85"/>
             </svg>
           </div>
-          <p class="detail-card-label" data-ru="Цветовая палитра" data-en="Colour Palette">Цветовая палитра</p>
-          <h3 class="detail-card-title" data-ru="Дресс-код" data-en="Dress Code">Дресс-код</h3>
-          <div class="palette-bars" aria-label="Цвета свадьбы">
-            <div class="palette-bar-row">
-              <div class="palette-bar-swatch" style="background:#C9A84C;"></div>
-              <span class="palette-bar-name" data-ru="Золото" data-en="Gold">Золото</span>
-            </div>
-            <div class="palette-bar-row">
-              <div class="palette-bar-swatch" style="background:#FDF9F0;border:1px solid rgba(201,168,76,0.4);"></div>
-              <span class="palette-bar-name" data-ru="Слоновая кость" data-en="Ivory">Слоновая кость</span>
-            </div>
-            <div class="palette-bar-row">
-              <div class="palette-bar-swatch" style="background:#1C2847;"></div>
-              <span class="palette-bar-name" data-ru="Тёмный индиго" data-en="Dark Indigo">Тёмный индиго</span>
-            </div>
-            <div class="palette-bar-row">
-              <div class="palette-bar-swatch" style="background:#C4836A;"></div>
-              <span class="palette-bar-name" data-ru="Терракот" data-en="Terracotta">Терракот</span>
-            </div>
-            <div class="palette-bar-row">
-              <div class="palette-bar-swatch" style="background:#B8BCC8;"></div>
-              <span class="palette-bar-name" data-ru="Серебро" data-en="Silver">Серебро</span>
-            </div>
-          </div>
-          <p class="palette-dress" data-ru="Вечерний наряд · Black Tie" data-en="Evening attire · Black Tie">Вечерний наряд · Black Tie</p>
+          <p class="detail-card-label" data-ru="Дресс-код" data-en="Dress Code">Дресс-код</p>
+          <h3 class="detail-card-title" data-ru="Формальный и бальный" data-en="Formal & Ball Gown">Формальный и бальный</h3>
+          <p class="detail-card-sub" data-ru="Просим гостей выбрать элегантный вечерний образ: для мужчин — костюм или смокинг, для женщин — длинное платье в бальном стиле." data-en="We kindly ask guests for an elegant evening look: a suit or tuxedo for gentlemen, a floor-length ball gown for ladies.">Просим гостей выбрать элегантный вечерний образ: для мужчин — костюм или смокинг, для женщин — длинное платье в бальном стиле.</p>
         </article>
 
 
@@ -1857,13 +1830,7 @@ body.intro-active {
           typewriteText('venue-text', 'Kempinski Hotel · Рига · Латвия', 32);
         }
       },
-      { delay: 9000, fn: () => {
-          const bb = document.getElementById('blessing-block');
-          bb.classList.add('visible');
-          typewriteText('blessing-text', 'Хьан некъ болх бойла,\nхьан ден хаза хуьлда', 32);
-        }
-      },
-      { delay: 10800, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
+      { delay: 9000, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
       { delay: 11600, fn: () => document.getElementById('rsvp-section').classList.add('visible') },
     ];
 
@@ -2233,12 +2200,10 @@ body.intro-active {
     const TW_RU = {
       mansur: 'Мансур', madina: 'Мадина', family: 'Абдулмуслимовы',
       date: '26 Сентября 2026', venue: 'Kempinski Hotel · Рига · Латвия',
-      blessing: 'Хьан некъ болх бойла,\nхьан ден хаза хуьлда',
     };
     const TW_EN = {
       mansur: 'Mansur', madina: 'Madina', family: 'Abdulmuslimovy',
       date: '26 September 2026', venue: 'Kempinski Hotel · Riga · Latvia',
-      blessing: 'May your path be bright,\nmay your days be beautiful',
     };
 
     let currentLang = 'ru';
@@ -2320,16 +2285,12 @@ body.intro-active {
       const familyEl  = document.getElementById('names-family');
       const dateEl    = document.getElementById('date-text');
       const venueEl   = document.getElementById('venue-text');
-      const blessEl   = document.getElementById('blessing-text');
 
       if (mansurEl  && mansurEl.textContent.trim())  mansurEl.textContent  = twStrings.mansur;
       if (madinaEl  && madinaEl.textContent.trim())  madinaEl.textContent  = twStrings.madina;
       if (familyEl  && familyEl.textContent.trim())  familyEl.textContent  = twStrings.family;
       if (dateEl    && dateEl.textContent.trim())    dateEl.textContent    = twStrings.date;
       if (venueEl   && venueEl.textContent.trim())   venueEl.textContent   = twStrings.venue;
-      if (blessEl   && blessEl.textContent.trim()) {
-        blessEl.innerHTML = twStrings.blessing.replace('\n', '<br>');
-      }
     }
 
     btnRU.addEventListener('click', () => applyLang('ru'));
