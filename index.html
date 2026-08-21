@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="Свадебное приглашение — Мансур &amp; Мадина Абдулмуслимов · 26 сентября 2026 · Kempinski Hotel Riga">
+<title>Мансур &amp; Мадина · XXVI · IX · MMXXVI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  --ivory: #FDF9F0;
+  --cream: #F5F1E8;
+  --gold: #C9A84C;
+  --gold-d: #8B6520;
+  --gold-l: #E8C96A;
+  --indigo: #1C2847;
+  --indigo-m: #2E3F6A;
+  --rose: #C4836A;
+  --pine: #2D5016;
+  --silver: #B8BCC8;
+  --charcoal: #1E1A16;
+  --intro-bg: #0A0C14;
+  --transition-base: 0.4s ease;
+  --shadow-gold: 0 4px 32px rgba(201,168,76,0.25);
+  --shadow-deep: 0 8px 48px rgba(10,12,20,0.35);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--charcoal);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body.intro-active {
+  overflow: hidden;
+}
+
+/* ===== INTRO SCREEN ===== */
+#intro-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--intro-bg);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+#intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#intro-screen.gone {
+  display: none;
+}
+
+#intro-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.intro-center.visible {
+  opacity: 1;
+}
+
+.intro-monogram {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 60px rgba(201,168,76,0.5), 0 0 120px rgba(201,168,76,0.2);
+  line-height: 1;
+}
+
+.intro-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.6rem, 2vw, 0.75rem);
+  letter-spacing: 0.4em;
+  color: rgba(201,168,76,0.7);
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.intro-skip {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: rgba(201,168,76,0.6);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  border-radius: 2px;
+  z-index: 10;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.intro-skip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ===== MAIN CONTENT ===== */
+#main-content {
+  opacity: 0;
+  transition: opacity 1s ease 0.3s;
+}
+
+#main-content.visible {
+  opacity: 1;
+}
+
+/* ===== INVITATION SECTION ===== */
+.invitation-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 4vw, 2rem);
+  background: var(--ivory);
+  position: relative;
+  overflow: hidden;
+}
+
+.invitation-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(circle at 20% 20%, var(--gold) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, var(--gold) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, var(--gold-d) 0.5px, transparent 0.5px);
+  background-size: 60px 60px, 60px 60px, 30px 30px;
+  pointer-events: none;
+}
+
+.invitation-card {
+  max-width: 680px;
+  width: 100%;
+  background: var(--cream);
+  border: 1px solid rgba(201,168,76,0.3);
+  position: relative;
+  padding: clamp(2.5rem, 8vw, 5rem) clamp(1.8rem, 6vw, 4rem);
+  box-shadow: var(--shadow-gold), inset 0 0 80px rgba(201,168,76,0.03);
+}
+
+/* Corner ornaments */
+.card-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+.card-corner--tl { top: -1px; left: -1px; }
+.card-corner--tr { top: -1px; right: -1px; transform: scaleX(-1); }
+.card-corner--bl { bottom: -1px; left: -1px; transform: scaleY(-1); }
+.card-corner--br { bottom: -1px; right: -1px; transform: scale(-1); }
+
+/* Луй-луй border SVG */
+.border-svg {
+  width: 100%;
+  overflow: visible;
+  display: block;
+}
+
+/* Typography */
+.eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  opacity: 0;
+  margin-bottom: 2rem;
+  transition: opacity 0.5s ease;
+}
+
+.eyebrow.visible { opacity: 1; }
+
+.names-block {
+  text-align: center;
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0;
+}
+
+.names-and {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  letter-spacing: 0.3em;
+  color: var(--gold-d);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.names-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 300;
+  color: var(--indigo);
+  line-height: 1.05;
+  display: block;
+  letter-spacing: -0.01em;
+}
+
+.names-infinity {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 0.75em;
+  vertical-align: middle;
+  padding: 0 0.15em;
+}
+
+.names-family {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 400;
+  color: var(--indigo-m);
+  letter-spacing: 0.12em;
+  display: block;
+  margin-top: 0.3em;
+  font-style: italic;
+}
+
+.infinity-svg-wrap {
+  text-align: center;
+  margin: 1.5rem 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.infinity-svg-wrap.visible { opacity: 1; }
+
+.date-block {
+  text-align: center;
+  margin: clamp(1.5rem, 4vw, 2rem) 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.date-block.visible { opacity: 1; }
+
+.date-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 300;
+  color: var(--indigo);
+  letter-spacing: 0.08em;
+  display: block;
+}
+
+.date-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.8vw, 0.68rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-d);
+  margin-top: 0.4rem;
+  display: block;
+}
+
+.venue-block {
+  text-align: center;
+  margin: 1rem 0 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.venue-block.visible { opacity: 1; }
+
+.venue-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: var(--indigo);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(201,168,76,0.4);
+  padding-bottom: 2px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.venue-link:hover {
+  color: var(--gold-d);
+  border-color: var(--gold);
+}
+
+.venue-pin {
+  font-size: 0.85em;
+  margin-right: 0.3em;
+}
+
+.blessing-block {
+  text-align: center;
+  margin: clamp(1.5rem, 4vw, 2rem) 0 0.5rem;
+  padding: 1.2rem clamp(1rem, 4vw, 2rem);
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.blessing-block.visible { opacity: 1; }
+
+.blessing-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  font-style: italic;
+  color: var(--indigo-m);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+
+/* Char reveal spans */
+.char { display: inline; opacity: 0; transition: opacity 0.1s ease; }
+.char.revealed { opacity: 1; }
+
+/* ===== RSVP BUTTON ===== */
+.rsvp-section {
+  text-align: center;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.rsvp-section.visible { opacity: 1; }
+
+.rsvp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 50%, var(--gold-l) 100%);
+  color: var(--ivory);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.65rem, 2vw, 0.78rem);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 1.1rem clamp(2rem, 6vw, 3.5rem);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 54px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px rgba(201,168,76,0.35);
+  text-decoration: none;
+}
+
+.rsvp-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 50%, var(--gold-d) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rsvp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(201,168,76,0.5);
+}
+
+.rsvp-btn:hover::before { opacity: 1; }
+
+.rsvp-btn span, .rsvp-btn svg { position: relative; z-index: 1; }
+
+/* ===== DETAILS SECTION ===== */
+.details-section {
+  padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 2rem);
+  background: var(--indigo);
+  position: relative;
+  overflow: hidden;
+}
+
+.details-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(circle at 30% 40%, var(--gold) 1px, transparent 1px),
+                    radial-gradient(circle at 70% 60%, var(--gold) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.details-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.details-eyebrow {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.8vw, 0.68rem);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 3vw, 1.8rem);
+  align-items: stretch;
+}
+
+.detail-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: clamp(1.5rem, 4vw, 2.2rem) clamp(1.2rem, 3vw, 1.8rem);
+  text-align: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.detail-card:hover {
+  border-color: rgba(201,168,76,0.6);
+  background: rgba(255,255,255,0.07);
+}
+
+.detail-card-icon {
+  margin: 0 auto 1rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-card-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.52rem, 1.5vw, 0.6rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-bottom: 0.6rem;
+}
+
+.detail-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+  color: var(--ivory);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.detail-card-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
+  color: rgba(248,249,240,0.85);
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+
+.detail-card-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.4);
+  padding-bottom: 2px;
+  transition: border-color 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.detail-card-link:hover { border-color: var(--gold); }
+
+/* ===== MODAL OVERLAY ===== */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,12,20,0.8);
+  z-index: 500;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem) 1rem;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+#modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== RSVP MODAL CARD ===== */
+.modal-card {
+  background: var(--indigo);
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+  transform: scale(0.88) rotate(-1deg);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  opacity: 0;
+  margin: auto;
+}
+
+#modal-overlay.open .modal-card {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+/* Modal corner stars */
+.modal-corner-star {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  opacity: 0.4;
+}
+.modal-corner-star--tl { top: 12px; left: 12px; }
+.modal-corner-star--tr { top: 12px; right: 12px; }
+.modal-corner-star--bl { bottom: 12px; left: 12px; }
+.modal-corner-star--br { bottom: 12px; right: 12px; }
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: rgba(201,168,76,0.6);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 2px;
+}
+
+.modal-close:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Modal border SVG */
+.modal-border-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.modal-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.6vw, 0.65rem);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 1.2;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: clamp(1rem, 3vw, 1.4rem);
+  position: relative;
+  z-index: 1;
+}
+
+.form-label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.6rem, 1.8vw, 0.68rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(248,249,240,0.6);
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--ivory);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  border-radius: 1px;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(248,249,240,0.25);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.09);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.6;
+}
+
+/* Radio buttons */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: var(--ivory);
+  padding: 0.6rem 0;
+  min-height: 44px;
+  transition: color 0.3s ease;
+}
+
+.radio-label:hover { color: var(--gold-l); }
+
+.radio-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.radio-input:checked {
+  border-color: var(--gold);
+}
+
+.radio-input:checked::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* Guest count */
+.guest-count-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.guest-btn {
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: rgba(248,249,240,0.6);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.guest-btn.active {
+  background: rgba(201,168,76,0.2);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.guest-count-field { display: block; }
+.guest-count-field.hidden { display: none; }
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold-d) 0%, var(--gold) 60%, var(--gold-l) 100%);
+  color: var(--ivory);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 1.1rem 2rem;
+  border: none;
+  cursor: pointer;
+  margin-top: clamp(1.2rem, 3vw, 2rem);
+  position: relative;
+  overflow: hidden;
+  min-height: 54px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 1;
+}
+
+.submit-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gold-l) 0%, var(--gold) 40%, var(--gold-d) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 30px rgba(201,168,76,0.4);
+}
+
+.submit-btn:hover::after { opacity: 1; }
+.submit-btn span { position: relative; z-index: 1; }
+.submit-btn svg { position: relative; z-index: 1; }
+
+/* Loading spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(248,249,240,0.3);
+  border-top-color: var(--ivory);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+
+.submit-btn.loading .spinner { display: block; }
+.submit-btn.loading .btn-text { display: none; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success state */
+.modal-success {
+  display: none;
+  text-align: center;
+  padding: clamp(2rem, 6vw, 3rem) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-success.visible { display: block; }
+
+.success-stars {
+  margin-bottom: 1.5rem;
+}
+
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.success-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
+  letter-spacing: 0.2em;
+  color: rgba(248,249,240,0.6);
+  text-transform: uppercase;
+}
+
+/* Error message */
+.form-error {
+  display: none;
+  background: rgba(196,131,106,0.15);
+  border: 1px solid rgba(196,131,106,0.4);
+  color: var(--rose);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  padding: 0.8rem 1rem;
+  margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.form-error.visible { display: block; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--charcoal);
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
+  text-align: center;
+  position: relative;
+}
+
+.footer-inner {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.footer-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: rgba(248,249,240,0.7);
+  letter-spacing: 0.12em;
+  margin: 1rem 0 0.4rem;
+}
+
+.footer-blessing {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-style: italic;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.footer-doc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.6vw, 0.62rem);
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(248,249,240,0.2);
+}
+
+/* ===== DIVIDER WAVE ===== */
+.wave-divider {
+  width: 100%;
+  margin: 0.5rem auto;
+  display: block;
+  overflow: visible;
+}
+
+/* ===== UTILITIES ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.3s !important;
+  }
+  #intro-screen { display: none !important; }
+  #main-content { opacity: 1 !important; }
+  .eyebrow, .date-block, .venue-block, .blessing-block,
+  .infinity-svg-wrap, .rsvp-section { opacity: 1 !important; }
+  .char { opacity: 1 !important; }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--ivory); }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.4); border-radius: 3px; }
+/* ===== RSVP STRIP ===== */
+.rsvp-strip {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
+}
+.rsvp-strip.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.rsvp-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.2rem, 4vw, 2.5rem);
+  padding: clamp(1.4rem, 4vw, 2rem) clamp(1rem, 4vw, 2rem);
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(255,255,255,0.03);
+}
+.rsvp-strip-text {
+  text-align: center;
+}
+.rsvp-strip-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.5vw, 0.62rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-bottom: 0.5rem;
+}
+.rsvp-strip-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--ivory);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.rsvp-strip-sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.62rem, 1.8vw, 0.7rem);
+  color: rgba(248,249,240,0.7);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
+/* fix 3-col grid on mobile */
+@media (max-width: 680px) {
+  .details-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .rsvp-strip-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media (min-width: 681px) and (max-width: 900px) {
+  .details-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ===== PALETTE CARD ===== */
+.palette-bars {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0.8rem 0 0.6rem;
+}
+.palette-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.palette-bar-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.palette-bar-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.62rem, 1.6vw, 0.7rem);
+  color: rgba(248,249,240,0.88);
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+.palette-dress {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.5vw, 0.62rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-top: auto;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(201,168,76,0.2);
+  width: 100%;
+  text-align: center;
+}
+
+/* ===== HEADER SYMBOLS ===== */
+.header-symbols {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 3rem);
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.header-symbols.visible { opacity: 1; }
+.header-tower { opacity: 0.75; }
+.header-star  { opacity: 1; }
+@media (max-width: 400px) {
+  .header-tower { width: 34px; height: 56px; }
+  .header-star  { width: 52px; height: 52px; }
+}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(253,249,240,0.92);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 2rem;
+  padding: 0.3rem 0.7rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(28,40,71,0.1);
+}
+.lang-btn {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--charcoal);
+  opacity: 0.45;
+  cursor: pointer;
+  padding: 0.15rem 0.3rem;
+  border-radius: 1rem;
+  transition: opacity 0.2s, color 0.2s;
+}
+.lang-btn.active {
+  opacity: 1;
+  color: var(--gold-d);
+}
+.lang-btn:hover { opacity: 0.8; }
+.lang-sep {
+  font-size: 0.55rem;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+/* ===== QUOTE SECTION ===== */
+.quote-section {
+  background: var(--ivory);
+  padding: 4rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+}
+.quote-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.quote-ornament {
+  opacity: 0.7;
+}
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  font-weight: 400;
+  color: var(--indigo);
+  line-height: 1.85;
+  font-style: normal;
+  letter-spacing: 0.01em;
+}
+.quote-text em {
+  font-style: italic;
+  color: var(--gold-d);
+}
+
+/* palette styles consolidated above */
+
+
+</style>
+</head>
+
+<body class="intro-active">
+
+<!-- ===== INTRO SCREEN ===== -->
+<div id="intro-screen" role="presentation" aria-hidden="true">
+  <canvas id="intro-canvas"></canvas>
+  <div class="intro-center" id="intro-center">
+    <div class="intro-monogram">М &amp; М</div>
+    <div class="intro-sub">Абдулмуслимовы · MMXXVI</div>
+  </div>
+  <button class="intro-skip" id="intro-skip" aria-label="Пропустить вступление">Пропустить</button>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main id="main-content" aria-label="Свадебное приглашение">
+
+  <!-- INVITATION SECTION -->
+  <section class="invitation-section" aria-label="Приглашение">
+    <div class="invitation-bg-pattern" aria-hidden="true"></div>
+
+    <div class="invitation-card" role="article">
+
+      <!-- Corner ornaments -->
+      <svg class="card-corner card-corner--tl" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 40 L1 8 Q1 1 8 1 L40 1" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <path d="M1 1 L8 8" stroke="#C9A84C" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="1" cy="1" r="2" fill="#C9A84C" opacity="0.6"/>
+      </svg>
+      <svg class="card-corner card-corner--tr" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 40 L1 8 Q1 1 8 1 L40 1" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <path d="M1 1 L8 8" stroke="#C9A84C" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="1" cy="1" r="2" fill="#C9A84C" opacity="0.6"/>
+      </svg>
+      <svg class="card-corner card-corner--bl" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 40 L1 8 Q1 1 8 1 L40 1" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <path d="M1 1 L8 8" stroke="#C9A84C" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="1" cy="1" r="2" fill="#C9A84C" opacity="0.6"/>
+      </svg>
+      <svg class="card-corner card-corner--br" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 40 L1 8 Q1 1 8 1 L40 1" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        <path d="M1 1 L8 8" stroke="#C9A84C" stroke-width="0.5" opacity="0.5"/>
+        <circle cx="1" cy="1" r="2" fill="#C9A84C" opacity="0.6"/>
+      </svg>
+
+      <!-- ═══ HEADER SYMBOLS: Башня · Звезда · Башня ═══ -->
+      <div class="header-symbols" aria-hidden="true">
+        <!-- Левая башня Г1ала -->
+        <svg class="header-tower" width="44" height="72" viewBox="0 0 44 72" fill="none">
+          <!-- зубцы -->
+          <rect x="4"  y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <rect x="17" y="0"  width="10" height="24" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <rect x="30" y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <!-- тело башни -->
+          <rect x="2"  y="17" width="40" height="55" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <!-- горизонтальные линии кладки -->
+          <line x1="2" y1="32" x2="42" y2="32" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+          <line x1="2" y1="47" x2="42" y2="47" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+          <!-- окно -->
+          <rect x="16" y="36" width="12" height="14" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.08)"/>
+          <!-- вход -->
+          <rect x="16" y="57" width="12" height="15" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+          <!-- маковка -->
+          <line x1="22" y1="0" x2="22" y2="-4" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
+          <rect x="19" y="-6" width="6" height="2" fill="#C9A84C" opacity="0.5"/>
+        </svg>
+
+        <!-- Центральная восьмиконечная звезда Вайнахов -->
+        <svg class="header-star" width="68" height="68" viewBox="0 0 68 68" fill="none">
+          <!-- внешняя звезда -->
+          <path d="M34 4 L38.5 22 L54 12 L44 26 L62 34 L44 42 L54 56 L38.5 46 L34 64 L29.5 46 L14 56 L24 42 L6 34 L24 26 L14 12 L29.5 22 Z"
+                stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.07)"/>
+          <!-- внутренний круг -->
+          <circle cx="34" cy="34" r="10" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.12)"/>
+          <!-- центральный ромб -->
+          <rect x="28" y="28" width="12" height="12" transform="rotate(45 34 34)" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.2)"/>
+          <!-- центральная точка -->
+          <circle cx="34" cy="34" r="2.5" fill="#C9A84C" opacity="0.8"/>
+        </svg>
+
+        <!-- Правая башня Г1ала (зеркально) -->
+        <svg class="header-tower" width="44" height="72" viewBox="0 0 44 72" fill="none" style="transform:scaleX(-1);">
+          <rect x="4"  y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <rect x="17" y="0"  width="10" height="24" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <rect x="30" y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <rect x="2"  y="17" width="40" height="55" stroke="#C9A84C" stroke-width="1" fill="none"/>
+          <line x1="2" y1="32" x2="42" y2="32" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+          <line x1="2" y1="47" x2="42" y2="47" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
+          <rect x="16" y="36" width="12" height="14" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.08)"/>
+          <rect x="16" y="57" width="12" height="15" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+          <line x1="22" y1="0" x2="22" y2="-4" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
+          <rect x="19" y="-6" width="6" height="2" fill="#C9A84C" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <!-- Top луй-луй border -->
+      <svg id="top-border" class="border-svg" height="20" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true">
+        <path id="top-border-path"
+          d="M0 10 Q5 2 10 10 Q15 18 20 10 Q25 2 30 10 Q35 18 40 10 Q45 2 50 10 Q55 18 60 10 Q65 2 70 10 Q75 18 80 10 Q85 2 90 10 Q95 18 100 10 Q105 2 110 10 Q115 18 120 10 Q125 2 130 10 Q135 18 140 10 Q145 2 150 10 Q155 18 160 10 Q165 2 170 10 Q175 18 180 10 Q185 2 190 10 Q195 18 200 10 Q205 2 210 10 Q215 18 220 10 Q225 2 230 10 Q235 18 240 10 Q245 2 250 10 Q255 18 260 10 Q265 2 270 10 Q275 18 280 10 Q285 2 290 10 Q295 18 300 10 Q305 2 310 10 Q315 18 320 10 Q325 2 330 10 Q335 18 340 10 Q345 2 350 10 Q355 18 360 10 Q365 2 370 10 Q375 18 380 10 Q385 2 390 10 Q395 18 400 10"
+          stroke="#C9A84C" stroke-width="1.5" fill="none"
+          style="stroke-dasharray: 1200; stroke-dashoffset: 1200;"
+        />
+        <!-- 8-point star decorations on border -->
+        <g transform="translate(8,10) scale(0.22)" opacity="0.6">
+          <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.15)" stroke-width="1"/>
+        </g>
+        <g transform="translate(392,10) translate(-6,-6) scale(0.22)" opacity="0.6">
+          <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.15)" stroke-width="1"/>
+        </g>
+      </svg>
+
+      <!-- Eyebrow -->
+      <p class="eyebrow" id="eyebrow">Нохчийн Никъ</p>
+
+      <!-- Names block -->
+      <div class="names-block">
+        <span class="names-and" data-ru="С радостью приглашаем вас на бракосочетание" data-en="We joyfully invite you to the wedding of">С радостью приглашаем вас на бракосочетание</span>
+        <span class="names-main" id="names-main" style="flex-direction:column;gap:0.1em;line-height:1.1;">
+          <span id="name-mansur" style="display:block;text-align:center;"></span>
+          <span class="names-infinity" aria-label="и" style="display:block;text-align:center;line-height:1.2;">∞</span>
+          <span id="name-madina" style="display:block;text-align:center;"></span>
+        </span>
+        <span class="names-family" id="names-family"></span>
+      </div>
+
+      <!-- Infinity SVG -->
+      <div class="infinity-svg-wrap" id="infinity-svg-wrap">
+        <svg width="60" height="24" viewBox="0 0 120 50" fill="none" aria-hidden="true">
+          <path id="infinity-path"
+            d="M60 25 C50 10 20 10 10 25 C20 40 50 40 60 25 C70 10 100 10 110 25 C100 40 70 40 60 25 Z"
+            stroke="#C9A84C" stroke-width="2" fill="none"
+            style="stroke-dasharray: 220; stroke-dashoffset: 220;"
+          />
+          <!-- Нахский ромб centered -->
+          <g transform="translate(57,22)">
+            <rect x="-5" y="-5" width="6" height="6" transform="rotate(45)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.8"/>
+            <rect x="-3" y="-3" width="2" height="2" transform="rotate(45)" fill="#C9A84C" opacity="0.6"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Divider -->
+      <svg class="wave-divider" id="mid-border" height="14" viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true">
+        <path id="mid-border-path"
+          d="M0 7 Q5 1 10 7 Q15 13 20 7 Q25 1 30 7 Q35 13 40 7 Q45 1 50 7 Q55 13 60 7 Q65 1 70 7 Q75 13 80 7 Q85 1 90 7 Q95 13 100 7 Q105 1 110 7 Q115 13 120 7 Q125 1 130 7 Q135 13 140 7 Q145 1 150 7 Q155 13 160 7 Q165 1 170 7 Q175 13 180 7 Q185 1 190 7 Q195 13 200 7 Q205 1 210 7 Q215 13 220 7 Q225 1 230 7 Q235 13 240 7 Q245 1 250 7 Q255 13 260 7 Q265 1 270 7 Q275 13 280 7 Q285 1 290 7 Q295 13 300 7 Q305 1 310 7 Q315 13 320 7 Q325 1 330 7 Q335 13 340 7 Q345 1 350 7 Q355 13 360 7 Q365 1 370 7 Q375 13 380 7 Q385 1 390 7 Q395 13 400 7"
+          stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"
+          style="stroke-dasharray: 900; stroke-dashoffset: 900;"
+        />
+      </svg>
+
+      <!-- Date -->
+      <div class="date-block" id="date-block">
+        <span class="date-main" id="date-text"></span>
+        <span class="date-sub">Суббота · Рига · Латвия</span>
+      </div>
+
+      <!-- Venue -->
+      <div class="venue-block" id="venue-block">
+        <a
+          href="https://www.google.com/maps/search/Kempinski+Hotel+Riga+Latvia"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="venue-link"
+          aria-label="Открыть Kempinski Hotel Riga на Google Maps"
+        >
+          <span class="venue-pin" aria-hidden="true">&#x1F4CD;</span>
+          <span id="venue-text"></span>
+        </a>
+      </div>
+
+      <!-- Blessing -->
+      <div class="blessing-block" id="blessing-block">
+        <p class="blessing-text" id="blessing-text"></p>
+      </div>
+
+      <!-- Bottom border -->
+      <svg class="wave-divider" id="bottom-border" height="20" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true" style="margin-top:1.5rem;">
+        <path id="bottom-border-path"
+          d="M0 10 Q5 2 10 10 Q15 18 20 10 Q25 2 30 10 Q35 18 40 10 Q45 2 50 10 Q55 18 60 10 Q65 2 70 10 Q75 18 80 10 Q85 2 90 10 Q95 18 100 10 Q105 2 110 10 Q115 18 120 10 Q125 2 130 10 Q135 18 140 10 Q145 2 150 10 Q155 18 160 10 Q165 2 170 10 Q175 18 180 10 Q185 2 190 10 Q195 18 200 10 Q205 2 210 10 Q215 18 220 10 Q225 2 230 10 Q235 18 240 10 Q245 2 250 10 Q255 18 260 10 Q265 2 270 10 Q275 18 280 10 Q285 2 290 10 Q295 18 300 10 Q305 2 310 10 Q315 18 320 10 Q325 2 330 10 Q335 18 340 10 Q345 2 350 10 Q355 18 360 10 Q365 2 370 10 Q375 18 380 10 Q385 2 390 10 Q395 18 400 10"
+          stroke="#C9A84C" stroke-width="1.5" fill="none"
+          style="stroke-dasharray: 1200; stroke-dashoffset: 1200;"
+        />
+      </svg>
+
+      <!-- RSVP Button -->
+      <div class="rsvp-section" id="rsvp-section">
+        <button class="rsvp-btn" id="rsvp-open-btn" aria-haspopup="dialog" aria-controls="modal-overlay">
+          <svg width="14" height="14" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" fill="rgba(248,249,240,0.8)"/>
+          </svg>
+          <span>Подтвердить присутствие</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+    </div><!-- /invitation-card -->
+  </section>
+
+  <!-- POETIC QUOTE -->
+  <section class="quote-section" aria-label="Цитата">
+    <div class="quote-inner">
+      <div class="quote-ornament" aria-hidden="true">
+        <svg width="48" height="20" viewBox="0 0 96 20" fill="none">
+          <path d="M0 10 Q6 2 12 10 Q18 18 24 10 Q30 2 36 10 Q42 18 48 10 Q54 2 60 10 Q66 18 72 10 Q78 2 84 10 Q90 18 96 10" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+      <blockquote class="quote-text" data-ru="Два числа, два металла, один сосуд.<br>Сила встретила форму — и форма стала живой.<br><em>Мансур и Мадина приглашают вас разделить этот момент —<br>не как зрителей, а как свидетелей начала,<br>когда два рода становятся одним.</em>" data-en="Two numbers, two metals, one vessel.<br>Strength met form — and form became alive.<br><em>Mansur and Madina invite you to share this moment —<br>not as spectators, but as witnesses to the beginning,<br>when two families become one.</em>">
+        Два числа, два металла, один сосуд.<br>Сила встретила форму — и форма стала живой.<br><em>Мансур и Мадина приглашают вас разделить этот момент —<br>не как зрителей, а как свидетелей начала,<br>когда два рода становятся одним.</em>
+      </blockquote>
+      <div class="quote-ornament" aria-hidden="true" style="transform:scaleX(-1);">
+        <svg width="48" height="20" viewBox="0 0 96 20" fill="none">
+          <path d="M0 10 Q6 2 12 10 Q18 18 24 10 Q30 2 36 10 Q42 18 48 10 Q54 2 60 10 Q66 18 72 10 Q78 2 84 10 Q90 18 96 10" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAILS SECTION -->
+  <section class="details-section" aria-label="Детали события">
+    <div class="details-bg" aria-hidden="true"></div>
+    <div class="details-inner">
+      <p class="details-eyebrow" data-ru="Подробности торжества" data-en="Wedding Details">Подробности торжества</p>
+      <div class="details-grid">
+
+        <!-- Date card -->
+        <article class="detail-card" aria-label="Дата и время">
+          <div class="detail-card-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="3" y="6" width="26" height="22" rx="1" stroke="#C9A84C" stroke-width="1.2"/>
+              <path d="M3 12 L29 12" stroke="#C9A84C" stroke-width="1.2"/>
+              <path d="M10 3 L10 9" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M22 3 L22 9" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+              <text x="16" y="24" text-anchor="middle" fill="#C9A84C" font-size="9" font-family="Cormorant Garamond, serif">8</text>
+            </svg>
+          </div>
+          <p class="detail-card-label" data-ru="Дата и время" data-en="Date &amp; Time">Дата и время</p>
+          <h3 class="detail-card-title" data-ru="26 Сентября 2026" data-en="26 September 2026">26 Сентября 2026</h3>
+          <p class="detail-card-sub" data-ru="Суббота<br>Торжество начинается в 14:00" data-en="Saturday<br>Ceremony begins at 14:00">Суббота<br>Торжество начинается в 14:00</p>
+        </article>
+
+        <!-- Venue card -->
+        <article class="detail-card" style="transition-delay:0.1s" aria-label="Место проведения">
+          <div class="detail-card-icon" aria-hidden="true">
+            <svg width="28" height="32" viewBox="0 0 28 36" fill="none">
+              <path d="M14 2 C7.4 2 2 7.4 2 14 C2 22 14 34 14 34 C14 34 26 22 26 14 C26 7.4 20.6 2 14 2 Z" stroke="#C9A84C" stroke-width="1.2"/>
+              <circle cx="14" cy="14" r="4" stroke="#C9A84C" stroke-width="1.2"/>
+            </svg>
+          </div>
+          <p class="detail-card-label" data-ru="Место проведения" data-en="Venue">Место проведения</p>
+          <h3 class="detail-card-title" data-ru="Kempinski Hotel" data-en="Kempinski Hotel">Kempinski Hotel</h3>
+          <p class="detail-card-sub" data-ru="Aspazijas bulvāris 22<br>Rīga, Latvija LV-1050" data-en="Aspazijas bulvāris 22<br>Rīga, Latvia LV-1050">Aspazijas bulvāris 22<br>Rīga, Latvija LV-1050</p>
+          <a href="https://www.google.com/maps/search/Kempinski+Hotel+Riga+Latvia" target="_blank" rel="noopener noreferrer" class="detail-card-link" aria-label="Открыть на Google Maps">
+            <span data-ru="Открыть на карте →" data-en="Open on map →">Открыть на карте →</span>
+          </a>
+        </article>
+
+        <!-- Palette card -->
+        <article class="detail-card palette-card" style="transition-delay:0.2s" aria-label="Цветовая палитра">
+          <div class="detail-card-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="10" cy="16" r="6" fill="#C9A84C" opacity="0.9"/>
+              <circle cx="22" cy="16" r="6" fill="#1C2847" opacity="0.9"/>
+              <circle cx="16" cy="10" r="5" fill="#C4836A" opacity="0.85"/>
+            </svg>
+          </div>
+          <p class="detail-card-label" data-ru="Цветовая палитра" data-en="Colour Palette">Цветовая палитра</p>
+          <h3 class="detail-card-title" data-ru="Дресс-код" data-en="Dress Code">Дресс-код</h3>
+          <div class="palette-bars" aria-label="Цвета свадьбы">
+            <div class="palette-bar-row">
+              <div class="palette-bar-swatch" style="background:#C9A84C;"></div>
+              <span class="palette-bar-name" data-ru="Золото" data-en="Gold">Золото</span>
+            </div>
+            <div class="palette-bar-row">
+              <div class="palette-bar-swatch" style="background:#FDF9F0;border:1px solid rgba(201,168,76,0.4);"></div>
+              <span class="palette-bar-name" data-ru="Слоновая кость" data-en="Ivory">Слоновая кость</span>
+            </div>
+            <div class="palette-bar-row">
+              <div class="palette-bar-swatch" style="background:#1C2847;"></div>
+              <span class="palette-bar-name" data-ru="Тёмный индиго" data-en="Dark Indigo">Тёмный индиго</span>
+            </div>
+            <div class="palette-bar-row">
+              <div class="palette-bar-swatch" style="background:#C4836A;"></div>
+              <span class="palette-bar-name" data-ru="Терракот" data-en="Terracotta">Терракот</span>
+            </div>
+            <div class="palette-bar-row">
+              <div class="palette-bar-swatch" style="background:#B8BCC8;"></div>
+              <span class="palette-bar-name" data-ru="Серебро" data-en="Silver">Серебро</span>
+            </div>
+          </div>
+          <p class="palette-dress" data-ru="Вечерний наряд · Black Tie" data-en="Evening attire · Black Tie">Вечерний наряд · Black Tie</p>
+        </article>
+
+
+      </div><!-- /details-grid -->
+
+      <!-- RSVP strip — full width below 3 cards -->
+      <div class="rsvp-strip" style="transition-delay:0.3s" role="article" aria-label="Подтверждение участия">
+        <!-- луй-луй top border of strip -->
+        <svg width="100%" height="10" viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true" style="display:block;margin-bottom:1.8rem;opacity:0.35;">
+          <path d="M0 5 Q5 1 10 5 Q15 9 20 5 Q25 1 30 5 Q35 9 40 5 Q45 1 50 5 Q55 9 60 5 Q65 1 70 5 Q75 9 80 5 Q85 1 90 5 Q95 9 100 5 Q105 1 110 5 Q115 9 120 5 Q125 1 130 5 Q135 9 140 5 Q145 1 150 5 Q155 9 160 5 Q165 1 170 5 Q175 9 180 5 Q185 1 190 5 Q195 9 200 5 Q205 1 210 5 Q215 9 220 5 Q225 1 230 5 Q235 9 240 5 Q245 1 250 5 Q255 9 260 5 Q265 1 270 5 Q275 9 280 5 Q285 1 290 5 Q295 9 300 5 Q305 1 310 5 Q315 9 320 5 Q325 1 330 5 Q335 9 340 5 Q345 1 350 5 Q355 9 360 5 Q365 1 370 5 Q375 9 380 5 Q385 1 390 5 Q395 9 400 5" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        </svg>
+        <div class="rsvp-strip-inner">
+          <!-- Hourglass icon -->
+          <svg width="28" height="32" viewBox="0 0 28 36" fill="none" aria-hidden="true" style="opacity:0.7;flex-shrink:0;">
+            <path d="M4 2 L24 2 L24 4 C24 12 14 16 14 16 C14 16 4 20 4 28 L4 34 L24 34 L24 28 C24 20 14 16 14 16 C14 16 4 12 4 4 Z" stroke="#C9A84C" stroke-width="1.1" fill="none"/>
+            <line x1="4" y1="2" x2="24" y2="2" stroke="#C9A84C" stroke-width="1.4"/>
+            <line x1="4" y1="34" x2="24" y2="34" stroke="#C9A84C" stroke-width="1.4"/>
+            <ellipse cx="14" cy="22" rx="4" ry="2.5" fill="rgba(201,168,76,0.25)"/>
+          </svg>
+          <div class="rsvp-strip-text">
+            <p class="rsvp-strip-label" data-ru="Подтвердите присутствие до" data-en="Please confirm your attendance by">Подтвердите присутствие до</p>
+            <p class="rsvp-strip-date" data-ru="1 Августа 2026" data-en="1 August 2026">1 Августа 2026</p>
+            <p class="rsvp-strip-sub" data-ru="Мы будем рады видеть вас на нашем торжестве" data-en="We would be honoured to celebrate with you">Мы будем рады видеть вас на нашем торжестве</p>
+          </div>
+          <!-- 8-pointed star ornament -->
+          <svg width="28" height="28" viewBox="0 0 56 56" fill="none" aria-hidden="true" style="opacity:0.35;flex-shrink:0;">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.1)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <!-- луй-луй bottom border of strip -->
+        <svg width="100%" height="10" viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true" style="display:block;margin-top:1.8rem;opacity:0.35;">
+          <path d="M0 5 Q5 1 10 5 Q15 9 20 5 Q25 1 30 5 Q35 9 40 5 Q45 1 50 5 Q55 9 60 5 Q65 1 70 5 Q75 9 80 5 Q85 1 90 5 Q95 9 100 5 Q105 1 110 5 Q115 9 120 5 Q125 1 130 5 Q135 9 140 5 Q145 1 150 5 Q155 9 160 5 Q165 1 170 5 Q175 9 180 5 Q185 1 190 5 Q195 9 200 5 Q205 1 210 5 Q215 9 220 5 Q225 1 230 5 Q235 9 240 5 Q245 1 250 5 Q255 9 260 5 Q265 1 270 5 Q275 9 280 5 Q285 1 290 5 Q295 9 300 5 Q305 1 310 5 Q315 9 320 5 Q325 1 330 5 Q335 9 340 5 Q345 1 350 5 Q355 9 360 5 Q365 1 370 5 Q375 9 380 5 Q385 1 390 5 Q395 9 400 5" stroke="#C9A84C" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+
+    </div><!-- /details-inner -->
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <svg class="wave-divider" height="14" viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true" style="margin-bottom:1rem;opacity:0.3;">
+        <path d="M0 7 Q5 1 10 7 Q15 13 20 7 Q25 1 30 7 Q35 13 40 7 Q45 1 50 7 Q55 13 60 7 Q65 1 70 7 Q75 13 80 7 Q85 1 90 7 Q95 13 100 7 Q105 1 110 7 Q115 13 120 7 Q125 1 130 7 Q135 13 140 7 Q145 1 150 7 Q155 13 160 7 Q165 1 170 7 Q175 13 180 7 Q185 1 190 7 Q195 13 200 7 Q205 1 210 7 Q215 13 220 7 Q225 1 230 7 Q235 13 240 7 Q245 1 250 7 Q255 13 260 7 Q265 1 270 7 Q275 13 280 7 Q285 1 290 7 Q295 13 300 7 Q305 1 310 7 Q315 13 320 7 Q325 1 330 7 Q335 13 340 7 Q345 1 350 7 Q355 13 360 7 Q365 1 370 7 Q375 13 380 7 Q385 1 390 7 Q395 13 400 7" stroke="#C9A84C" stroke-width="1" fill="none"/>
+      </svg>
+      <p class="footer-names">Мансур &amp; Мадина · XXVI · IX · MMXXVI</p>
+      <p class="footer-blessing">Дала аьтто бойла шун</p>
+      <p class="footer-doc">Нохчийн Никъ</p>
+    </div>
+  </footer>
+
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-switcher" id="lang-switcher" role="navigation" aria-label="Выбор языка">
+    <button class="lang-btn active" id="lang-ru" aria-pressed="true" lang="ru">RU</button>
+    <span class="lang-sep" aria-hidden="true">·</span>
+    <button class="lang-btn" id="lang-en" aria-pressed="false" lang="en">EN</button>
+  </div>
+
+
+</main>
+
+<!-- ===== RSVP MODAL ===== -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Форма подтверждения участия" aria-hidden="true">
+  <div class="modal-card" id="modal-card">
+
+    <!-- Modal border drawing SVG -->
+    <svg class="modal-border-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <!-- Луй-луй top -->
+      <path
+        d="M5 4 Q6.25 2 7.5 4 Q8.75 6 10 4 Q11.25 2 12.5 4 Q13.75 6 15 4 Q16.25 2 17.5 4 Q18.75 6 20 4 Q21.25 2 22.5 4 Q23.75 6 25 4 Q26.25 2 27.5 4 Q28.75 6 30 4 Q31.25 2 32.5 4 Q33.75 6 35 4 Q36.25 2 37.5 4 Q38.75 6 40 4 Q41.25 2 42.5 4 Q43.75 6 45 4 Q46.25 2 47.5 4 Q48.75 6 50 4 Q51.25 2 52.5 4 Q53.75 6 55 4 Q56.25 2 57.5 4 Q58.75 6 60 4 Q61.25 2 62.5 4 Q63.75 6 65 4 Q66.25 2 67.5 4 Q68.75 6 70 4 Q71.25 2 72.5 4 Q73.75 6 75 4 Q76.25 2 77.5 4 Q78.75 6 80 4 Q81.25 2 82.5 4 Q83.75 6 85 4 Q86.25 2 87.5 4 Q88.75 6 90 4 Q91.25 2 92.5 4 Q93.75 6 95 4"
+        stroke="rgba(201,168,76,0.5)" stroke-width="0.5" fill="none"
+        vectorEffect="non-scaling-stroke"
+      />
+      <!-- Луй-луй bottom -->
+      <path
+        d="M5 96 Q6.25 94 7.5 96 Q8.75 98 10 96 Q11.25 94 12.5 96 Q13.75 98 15 96 Q16.25 94 17.5 96 Q18.75 98 20 96 Q21.25 94 22.5 96 Q23.75 98 25 96 Q26.25 94 27.5 96 Q28.75 98 30 96 Q31.25 94 32.5 96 Q33.75 98 35 96 Q36.25 94 37.5 96 Q38.75 98 40 96 Q41.25 94 42.5 96 Q43.75 98 45 96 Q46.25 94 47.5 96 Q48.75 98 50 96 Q51.25 94 52.5 96 Q53.75 98 55 96 Q56.25 94 57.5 96 Q58.75 98 60 96 Q61.25 94 62.5 96 Q63.75 98 65 96 Q66.25 94 67.5 96 Q68.75 98 70 96 Q71.25 94 72.5 96 Q73.75 98 75 96 Q76.25 94 77.5 96 Q78.75 98 80 96 Q81.25 94 82.5 96 Q83.75 98 85 96 Q86.25 94 87.5 96 Q88.75 98 90 96 Q91.25 94 92.5 96 Q93.75 98 95 96"
+        stroke="rgba(201,168,76,0.5)" stroke-width="0.5" fill="none"
+        vectorEffect="non-scaling-stroke"
+      />
+      <!-- Thin border rect -->
+      <rect x="2" y="2" width="96" height="96" stroke="rgba(201,168,76,0.2)" stroke-width="0.4" fill="none" vectorEffect="non-scaling-stroke"/>
+    </svg>
+
+    <!-- Corner stars -->
+    <svg class="modal-corner-star modal-corner-star--tl" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+      <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.1)" stroke-width="1.5"/>
+    </svg>
+    <svg class="modal-corner-star modal-corner-star--tr" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+      <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.1)" stroke-width="1.5"/>
+    </svg>
+    <svg class="modal-corner-star modal-corner-star--bl" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+      <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.1)" stroke-width="1.5"/>
+    </svg>
+    <svg class="modal-corner-star modal-corner-star--br" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+      <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.1)" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Close button -->
+    <button class="modal-close" id="modal-close" aria-label="Закрыть">&#x2715;</button>
+
+    <!-- Modal header -->
+    <header class="modal-header">
+      <span class="modal-eyebrow">Подтверждение участия</span>
+      <h2 class="modal-title">Мансур &amp; Мадина</h2>
+      <!-- Mini луй-луй divider -->
+      <svg width="120" height="10" viewBox="0 0 120 10" fill="none" style="margin:0.8rem auto 0;display:block;" aria-hidden="true">
+        <path d="M0 5 Q3 1 6 5 Q9 9 12 5 Q15 1 18 5 Q21 9 24 5 Q27 1 30 5 Q33 9 36 5 Q39 1 42 5 Q45 9 48 5 Q51 1 54 5 Q57 9 60 5 Q63 1 66 5 Q69 9 72 5 Q75 1 78 5 Q81 9 84 5 Q87 1 90 5 Q93 9 96 5 Q99 1 102 5 Q105 9 108 5 Q111 1 114 5 Q117 9 120 5" stroke="rgba(201,168,76,0.5)" stroke-width="1" fill="none"/>
+      </svg>
+    </header>
+
+    <!-- RSVP Form -->
+    <form id="rsvp-form" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-name">Ваше имя <span aria-hidden="true">*</span></label>
+        <input class="form-input" type="text" id="rsvp-name" name="name" placeholder="Имя и фамилия" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-email">Email <span aria-hidden="true">*</span></label>
+        <input class="form-input" type="email" id="rsvp-email" name="email" placeholder="your@email.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Вы придёте? <span aria-hidden="true">*</span></label>
+        <div class="radio-group" role="radiogroup" aria-required="true">
+          <label class="radio-label">
+            <input class="radio-input" type="radio" name="attending" value="yes" required>
+            Да, с радостью!
+          </label>
+          <label class="radio-label">
+            <input class="radio-input" type="radio" name="attending" value="no">
+            К сожалению, не смогу
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group guest-count-field hidden" id="guest-count-field">
+        <label class="form-label">Количество гостей (включая вас)</label>
+        <div class="guest-count-group" role="group" aria-label="Выберите количество гостей">
+          <button type="button" class="guest-btn active" data-count="1" aria-pressed="true">1</button>
+          <button type="button" class="guest-btn" data-count="2" aria-pressed="false">2</button>
+          <button type="button" class="guest-btn" data-count="3" aria-pressed="false">3</button>
+          <button type="button" class="guest-btn" data-count="4" aria-pressed="false">4</button>
+          <button type="button" class="guest-btn" data-count="5" aria-pressed="false">5</button>
+        </div>
+        <input type="hidden" id="rsvp-guests" name="guests" value="1">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-dietary">Пищевые предпочтения / аллергии</label>
+        <textarea class="form-textarea" id="rsvp-dietary" name="dietary" placeholder="Например: вегетарианское, без глютена..." rows="2"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-message">Пожелание молодожёнам</label>
+        <textarea class="form-textarea" id="rsvp-message" name="message" placeholder="Ваши добрые пожелания..." rows="3"></textarea>
+      </div>
+
+      <div class="form-error" id="form-error" role="alert"></div>
+
+      <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:3rem;margin-bottom:4rem;">
+        <div class="spinner" aria-hidden="true"></div>
+        <span class="btn-text" style="display:flex;align-items:center;gap:0.6rem;">
+          <svg width="14" height="14" viewBox="0 0 56 56" fill="none" aria-hidden="true">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" fill="rgba(248,249,240,0.9)"/>
+          </svg>
+          Отправить подтверждение
+        </span>
+      </button>
+
+    </form>
+
+    <!-- Success state -->
+    <div class="modal-success" id="modal-success" aria-live="polite">
+      <div class="success-stars" id="success-stars-container" aria-hidden="true">
+        <svg width="100" height="40" viewBox="0 0 200 80" fill="none">
+          <g transform="translate(10,10) scale(0.7)" opacity="0">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.2)" stroke-width="1.5" class="success-star"/>
+          </g>
+          <g transform="translate(74,5) scale(1)" opacity="0">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.3)" stroke-width="1.5" class="success-star"/>
+          </g>
+          <g transform="translate(148,10) scale(0.7)" opacity="0">
+            <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.2)" stroke-width="1.5" class="success-star"/>
+          </g>
+        </svg>
+      </div>
+      <p class="success-title">Спасибо!</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ivory);margin-bottom:0.5rem;">Ждём вас с нетерпением</p>
+      <p class="success-sub">26 сентября 2026 · Kempinski Hotel · Рига</p>
+    </div>
+
+  </div><!-- /modal-card -->
+</div><!-- /modal-overlay -->
+
+<script>
+/* ===================================================================
+   WEDDING INVITATION — SCRIPTS
+   Мансур & Мадина Абдулмуслимов · 26 September 2026 · Kempinski Hotel Riga
+   =================================================================== */
+(function() {
+  'use strict';
+
+  /* ── Reduced motion check ── */
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ================================================================
+     1. CANVAS PARTICLE INTRO
+     ================================================================ */
+  const introScreen = document.getElementById('intro-screen');
+  const introCanvas = document.getElementById('intro-canvas');
+  const introCenter = document.getElementById('intro-center');
+  const introSkip   = document.getElementById('intro-skip');
+  const mainContent = document.getElementById('main-content');
+
+  if (reducedMotion) {
+    introScreen.style.display = 'none';
+    mainContent.classList.add('visible');
+    document.body.classList.remove('intro-active');
+    return initMainAnimations();
+  }
+
+  const ctx = introCanvas.getContext('2d');
+  let W, H, particles = [], animFrame;
+  let introPhase = 'particles'; // 'particles' | 'arranging' | 'done'
+  let phaseTime = 0;
+
+  const GOLD_COLORS = [
+    'rgba(201,168,76,',
+    'rgba(232,201,106,',
+    'rgba(139,101,32,',
+    'rgba(201,168,76,',
+  ];
+
+  function resize() {
+    W = introCanvas.width  = window.innerWidth;
+    H = introCanvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  /* Build particle pool */
+  function makeParticle(i) {
+    const edge = Math.floor(Math.random() * 4);
+    let x, y;
+    switch (edge) {
+      case 0: x = Math.random() * W; y = -20;      break;
+      case 1: x = W + 20;            y = Math.random() * H; break;
+      case 2: x = Math.random() * W; y = H + 20;   break;
+      default:x = -20;               y = Math.random() * H; break;
+    }
+    const cx = W * (0.3 + Math.random() * 0.4);
+    const cy = H * (0.3 + Math.random() * 0.4);
+    const angle = Math.random() * Math.PI * 2;
+    const orbitR = 40 + Math.random() * Math.min(W, H) * 0.18;
+    const speed  = 0.003 + Math.random() * 0.006;
+    const size   = 1.5 + Math.random() * 3;
+    const color  = GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)];
+    const type   = Math.random() < 0.3 ? 'star' : 'dot';
+    return { x, y, vx: 0, vy: 0, cx, cy, orbitR, angle, speed, size, color, opacity: 0, type, i };
+  }
+
+  for (let i = 0; i < 60; i++) particles.push(makeParticle(i));
+
+  /* Draw 8-point star */
+  function drawStar(cx, cy, r, opacity, color) {
+    const pts = [];
+    for (let k = 0; k < 16; k++) {
+      const a  = (k * Math.PI) / 8 - Math.PI / 2;
+      const rr = k % 2 === 0 ? r : r * 0.4;
+      pts.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]);
+    }
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let k = 1; k < pts.length; k++) ctx.lineTo(pts[k][0], pts[k][1]);
+    ctx.closePath();
+    ctx.strokeStyle = color + opacity + ')';
+    ctx.fillStyle   = color + (opacity * 0.15) + ')';
+    ctx.lineWidth   = 0.8;
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  /* Draw wave border */
+  function drawWaveBorder(y, amplitude, segments, opacity) {
+    ctx.beginPath();
+    const segW = W / segments;
+    ctx.moveTo(0, y);
+    for (let k = 0; k < segments; k++) {
+      const x1 = (k + 0.5) * segW;
+      const x2 = (k + 1)   * segW;
+      const cp1y = y - amplitude;
+      const cp2y = y + amplitude;
+      ctx.quadraticCurveTo(x1, cp1y, x2, y);
+      if (k < segments - 1) ctx.quadraticCurveTo(x1 + segW * 0.5, cp2y, x2 + segW * 0.5, y);
+    }
+    ctx.strokeStyle = 'rgba(201,168,76,' + opacity + ')';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+
+  let startTime = null;
+  const INTRO_DURATION = 3200; // total ms before transition
+
+  function animateIntro(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+
+    ctx.clearRect(0, 0, W, H);
+
+    /* Phase 1: 0–1500ms — particles fly in + orbit */
+    /* Phase 2: 1500–2500ms — form луй-луй waves */
+    /* Phase 3: 2500–3200ms — hold + monogram appears */
+
+    const t1 = Math.min(1, elapsed / 1500);
+    const t2 = elapsed > 1500 ? Math.min(1, (elapsed - 1500) / 1000) : 0;
+    const t3 = elapsed > 2500 ? Math.min(1, (elapsed - 2500) / 700)  : 0;
+
+    particles.forEach((p, idx) => {
+      /* Phase 1: move toward orbit center */
+      if (t1 < 1) {
+        const tx = p.cx + Math.cos(p.angle) * p.orbitR;
+        const ty = p.cy + Math.sin(p.angle) * p.orbitR;
+        p.x += (tx - p.x) * 0.04;
+        p.y += (ty - p.y) * 0.04;
+        p.opacity = Math.min(0.9, p.opacity + 0.025);
+      }
+
+      /* Phase 2: arrange into wave rows */
+      if (t2 > 0) {
+        const row   = idx < 30 ? 0 : 1;
+        const pos   = (idx % 30) / 29;
+        const waveY = row === 0
+          ? H * 0.25 + Math.sin(pos * Math.PI * 8) * 14
+          : H * 0.75 + Math.sin(pos * Math.PI * 8 + Math.PI) * 14;
+        const waveX = pos * W;
+        p.x += (waveX - p.x) * 0.06 * t2;
+        p.y += (waveY - p.y) * 0.06 * t2;
+        if (t2 > 0.5) p.angle += p.speed;
+      } else {
+        p.angle += p.speed * 0.5;
+      }
+
+      /* Draw */
+      const alpha = p.opacity * (t3 < 0.5 ? 1 : 1 - (t3 - 0.5) * 1.5);
+      if (p.type === 'star' && p.size > 2.5) {
+        drawStar(p.x, p.y, p.size * 2.5, Math.max(0, alpha), p.color);
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + Math.max(0, alpha) + ')';
+        ctx.fill();
+      }
+    });
+
+    /* Wave borders fading in during phase 2 */
+    if (t2 > 0.3) {
+      const waveOpacity = (t2 - 0.3) / 0.7 * 0.5 * (t3 < 0.5 ? 1 : 1 - (t3 - 0.5) * 1.5);
+      drawWaveBorder(H * 0.2,  10, 20, Math.max(0, waveOpacity));
+      drawWaveBorder(H * 0.8,  10, 20, Math.max(0, waveOpacity));
+    }
+
+    /* Show monogram at phase 3 */
+    if (elapsed > 1800 && t3 === 0) {
+      introCenter.classList.add('visible');
+    }
+
+    if (elapsed < INTRO_DURATION) {
+      animFrame = requestAnimationFrame(animateIntro);
+    } else {
+      triggerIntroExit();
+    }
+  }
+
+  animFrame = requestAnimationFrame(animateIntro);
+
+  /* Monogram appears mid-animation */
+  setTimeout(() => introCenter.classList.add('visible'), 1800);
+
+  function triggerIntroExit() {
+    cancelAnimationFrame(animFrame);
+    introScreen.classList.add('fade-out');
+    mainContent.classList.add('visible');
+    document.body.classList.remove('intro-active');
+    setTimeout(() => {
+      introScreen.classList.add('gone');
+      ctx.clearRect(0, 0, W, H);
+    }, 1300);
+    initMainAnimations();
+  }
+
+  introSkip.addEventListener('click', triggerIntroExit);
+
+
+  /* ================================================================
+     2. INVITATION ANIMATION SEQUENCE
+     ================================================================ */
+  function initMainAnimations() {
+
+    /* Sequence definitions */
+    const seq = [
+      { delay: 200,  fn: () => animateBorderPath('top-border-path', 1200, 1400) },
+      { delay: 1700, fn: () => { revealEyebrow(); document.querySelector('.header-symbols') && document.querySelector('.header-symbols').classList.add('visible'); } },
+      { delay: 2200, fn: () => typewriteText('name-mansur', 'Мансур', 45) },
+      { delay: 2600, fn: () => typewriteText('name-madina', 'Мадина', 45) },
+      { delay: 3100, fn: () => typewriteText('names-family', 'Абдулмуслимовы', 38) },
+      { delay: 3900, fn: () => {
+          document.getElementById('infinity-svg-wrap').classList.add('visible');
+          animateBorderPath('infinity-path', 220, 1000);
+        }
+      },
+      { delay: 5100, fn: () => animateBorderPath('mid-border-path', 900, 900) },
+      { delay: 6200, fn: () => {
+          const db = document.getElementById('date-block');
+          db.classList.add('visible');
+          typewriteText('date-text', '26 Сентября 2026', 38);
+        }
+      },
+      { delay: 7400, fn: () => {
+          const vb = document.getElementById('venue-block');
+          vb.classList.add('visible');
+          typewriteText('venue-text', 'Kempinski Hotel · Рига · Латвия', 32);
+        }
+      },
+      { delay: 9000, fn: () => {
+          const bb = document.getElementById('blessing-block');
+          bb.classList.add('visible');
+          typewriteText('blessing-text', 'Хьан некъ болх бойла,\nхьан ден хаза хуьлда', 32);
+        }
+      },
+      { delay: 10800, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
+      { delay: 11600, fn: () => document.getElementById('rsvp-section').classList.add('visible') },
+    ];
+
+    seq.forEach(s => setTimeout(s.fn, s.delay));
+
+    /* Activate IntersectionObserver for detail cards */
+    initScrollAnimations();
+  }
+
+  /* Animate SVG stroke-dashoffset */
+  function animateBorderPath(id, totalLength, duration) {
+    const path = document.getElementById(id);
+    if (!path) return;
+    path.style.strokeDasharray  = totalLength;
+    path.style.strokeDashoffset = totalLength;
+    path.style.transition = `stroke-dashoffset ${duration}ms cubic-bezier(0.4,0,0.2,1)`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        path.style.strokeDashoffset = '0';
+      });
+    });
+  }
+
+  /* Fade in eyebrow */
+  function revealEyebrow() {
+    document.getElementById('eyebrow').classList.add('visible');
+  }
+
+  /* Typewriter with newline support */
+  function typewriteText(elId, text, charDelay) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = '';
+    const chars = text.split('');
+    chars.forEach((ch, i) => {
+      setTimeout(() => {
+        if (ch === '\n') {
+          el.appendChild(document.createElement('br'));
+        } else {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = ch === ' ' ? ' ' : ch;
+          el.appendChild(span);
+          requestAnimationFrame(() => span.classList.add('revealed'));
+        }
+      }, i * charDelay);
+    });
+  }
+
+
+  /* ================================================================
+     3. SCROLL ANIMATIONS (IntersectionObserver)
+     ================================================================ */
+  function initScrollAnimations() {
+    const cards = document.querySelectorAll('.detail-card, .rsvp-strip');
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(c => observer.observe(c));
+  }
+
+
+  /* ================================================================
+     4. RSVP MODAL
+     ================================================================ */
+  const overlay    = document.getElementById('modal-overlay');
+  const closeBtn   = document.getElementById('modal-close');
+  const openBtn    = document.getElementById('rsvp-open-btn');
+  const rsvpForm   = document.getElementById('rsvp-form');
+  const submitBtn  = document.getElementById('submit-btn');
+  const formError  = document.getElementById('form-error');
+  const modalSuccess = document.getElementById('modal-success');
+  const guestField = document.getElementById('guest-count-field');
+  const guestBtns  = document.querySelectorAll('.guest-btn');
+  const guestHidden= document.getElementById('rsvp-guests');
+  const attendRadios = document.querySelectorAll('input[name="attending"]');
+
+  let selectedGuests = 1;
+
+  function openModal() {
+    overlay.removeAttribute('aria-hidden');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    /* Focus trap: first focusable */
+    setTimeout(() => {
+      const firstInput = overlay.querySelector('input, button:not(.modal-close)');
+      if (firstInput) firstInput.focus();
+    }, 300);
+  }
+
+  function closeModal() {
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if (openBtn) openBtn.focus();
+  }
+
+  openBtn  && openBtn.addEventListener('click', openModal);
+  closeBtn && closeBtn.addEventListener('click', closeModal);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+  });
+
+  /* Toggle guest count field based on attending */
+  attendRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.value === 'yes' && radio.checked) {
+        guestField.classList.remove('hidden');
+      } else if (radio.value === 'no' && radio.checked) {
+        guestField.classList.add('hidden');
+      }
+    });
+  });
+
+  /* Guest count buttons */
+  guestBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      guestBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      selectedGuests = parseInt(btn.dataset.count, 10);
+      guestHidden.value = selectedGuests;
+    });
+  });
+
+  /* Focus trap inside modal */
+  const modalCard = document.getElementById('modal-card');
+  modalCard.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = modalCard.querySelectorAll(
+      'button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ── Form submission ── */
+  rsvpForm && rsvpForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    formError.classList.remove('visible');
+    formError.textContent = '';
+
+    /* Validate */
+    const name     = document.getElementById('rsvp-name').value.trim();
+    const email    = document.getElementById('rsvp-email').value.trim();
+    const attending_radio = rsvpForm.querySelector('input[name="attending"]:checked');
+    const dietary  = document.getElementById('rsvp-dietary').value.trim();
+    const message  = document.getElementById('rsvp-message').value.trim();
+
+    if (!name) {
+      formError.textContent = 'Пожалуйста, введите ваше имя.';
+      formError.classList.add('visible');
+      document.getElementById('rsvp-name').focus();
+      return;
+    }
+    if (!attending_radio) {
+      formError.textContent = 'Пожалуйста, укажите, придёте ли вы.';
+      formError.classList.add('visible');
+      return;
+    }
+
+    const attending = attending_radio.value === 'yes';
+    const guests    = attending ? selectedGuests : 0;
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      formError.textContent = currentLang === 'en' ? 'Please enter a valid email address.' : 'Пожалуйста, введите корректный email.';
+      formError.classList.add('visible');
+      document.getElementById('rsvp-email').focus();
+      return;
+    }
+
+    /* Web3Forms — static-site form backend, no server of our own.
+       Access key is tied to the receiving inbox; WEB3FORMS_ADMIN_EMAIL is
+       informational only (Web3Forms routes by key, not by this field). */
+    const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY_HERE';
+
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: `RSVP · Мансур & Мадина · ${name}`,
+      from_name: 'Мансур & Мадина — сайт приглашения',
+      name,
+      email,
+      attending: attending ? 'Придёт' : 'Не придёт',
+      guests: attending ? guests : 0,
+      dietary: dietary || '—',
+      message: message || '—',
+    };
+
+    /* Show loading */
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined,
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success === false) {
+        throw new Error(data.message || 'Ошибка отправки. Попробуйте позже.');
+      }
+
+      /* Success */
+      showSuccess();
+
+    } catch (err) {
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+      formError.textContent = err.message || 'Произошла ошибка. Попробуйте ещё раз.';
+      formError.classList.add('visible');
+    }
+  });
+
+  function showSuccess() {
+    rsvpForm.style.display = 'none';
+    modalSuccess.classList.add('visible');
+
+    /* Animate stars */
+    const stars = document.querySelectorAll('.success-star');
+    stars.forEach((star, i) => {
+      const g = star.closest('g');
+      if (!g) return;
+      setTimeout(() => {
+        g.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        g.style.opacity = '1';
+        g.style.transform = 'scale(1.2)';
+        setTimeout(() => { g.style.transform = 'scale(1)'; }, 500);
+      }, i * 150);
+    });
+
+    /* Auto-close after 5s */
+    setTimeout(() => {
+      closeModal();
+      /* Reset form */
+      setTimeout(() => {
+        rsvpForm.reset();
+        rsvpForm.style.display = '';
+        modalSuccess.classList.remove('visible');
+        const stars = document.querySelectorAll('.success-star');
+        stars.forEach(s => { const g = s.closest('g'); if (g) { g.style.opacity = '0'; } });
+        guestField.classList.add('hidden');
+        guestBtns.forEach(b => b.classList.remove('active'));
+        guestBtns[0].classList.add('active');
+        selectedGuests = 1;
+        guestHidden.value = 1;
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+      }, 600);
+    }, 5000);
+  }
+
+
+  /* ================================================================
+     5. PASSIVE SCROLL PERFORMANCE
+     ================================================================ */
+  document.addEventListener('touchstart', () => {}, { passive: true });
+  document.addEventListener('touchmove',  () => {}, { passive: true });
+
+
+  /* ================================================================
+     LANGUAGE SWITCHER
+     ================================================================ */
+  (function initLang() {
+    const btnRU = document.getElementById('lang-ru');
+    const btnEN = document.getElementById('lang-en');
+    if (!btnRU || !btnEN) return;
+
+    // English translations map for static text nodes
+    const EN = {
+      // invitation card
+      'eyebrow':        'Nohchiin Nikj',
+      'names-and':      'We joyfully invite you to the wedding of',
+      'names-family-static': 'Abdulmuslimovy',
+      'date-sub':       'Saturday · Riga · Latvia',
+      'venue-aria':     'Open Kempinski Hotel Riga on Google Maps',
+      // details eyebrow
+      'details-eyebrow': 'Wedding Details',
+      // date card
+      'date-card-label': 'Date & Time',
+      'date-card-sub':   'Saturday<br>Ceremony begins at 14:00',
+      // venue card
+      'venue-card-label': 'Venue',
+      'venue-map-link':   'Open on map &rarr;',
+      // rsvp card
+      'rsvp-card-label':  'By',
+      // rsvp btn
+      'rsvp-btn-text':    'Confirm Attendance',
+      // footer
+      'footer-blessing':  'May God grant you happiness',
+      'footer-doc':       'Nohchiin Nikj',
+      // modal
+      'modal-eyebrow':    'RSVP Confirmation',
+      'modal-title':      'Mansur & Madina',
+      'name-label':       'Your name',
+      'name-placeholder': 'Full name',
+      'email-label':      'Email',
+      'attending-label':  'Will you attend?',
+      'radio-yes':        'Yes, with pleasure!',
+      'radio-no':         'Unfortunately, I cannot',
+      'guests-label':     'Number of guests (including yourself)',
+      'dietary-label':    'Dietary preferences / allergies',
+      'dietary-ph':       'E.g.: vegetarian, gluten-free...',
+      'message-label':    'Message to the couple',
+      'message-ph':       'Your kind wishes...',
+      'submit-text':      'Send Confirmation',
+      'success-title':    'Thank you!',
+      'success-sub-text': 'We look forward to seeing you',
+      'success-date':     '26 September 2026 · Kempinski Hotel · Riga',
+    };
+
+    const RU = {
+      'eyebrow':        'Нохчийн Никъ',
+      'names-and':      'С радостью приглашаем вас на бракосочетание',
+      'names-family-static': 'Абдулмуслимовы',
+      'date-sub':       'Суббота · Рига · Латвия',
+      'venue-aria':     'Открыть Kempinski Hotel Riga на Google Maps',
+      'details-eyebrow': 'Подробности торжества',
+      'date-card-label': 'Дата и время',
+      'date-card-sub':   'Суббота<br>Торжество начинается в 14:00',
+      'venue-card-label': 'Место проведения',
+      'venue-map-link':   'Открыть на карте &rarr;',
+      'rsvp-card-label':  'До',
+      'rsvp-btn-text':    'Подтвердить присутствие',
+      'footer-blessing':  'Дала аьтто бойла шун',
+      'footer-doc':       'Нохчийн Никъ',
+      'modal-eyebrow':    'Подтверждение участия',
+      'modal-title':      'Мансур & Мадина',
+      'name-label':       'Ваше имя',
+      'name-placeholder': 'Имя и фамилия',
+      'email-label':      'Email',
+      'attending-label':  'Вы придёте?',
+      'radio-yes':        'Да, с радостью!',
+      'radio-no':         'К сожалению, не смогу',
+      'guests-label':     'Количество гостей (включая вас)',
+      'dietary-label':    'Пищевые предпочтения / аллергии',
+      'dietary-ph':       'Например: вегетарианское, без глютена...',
+      'message-label':    'Пожелание молодожёнам',
+      'message-ph':       'Ваши добрые пожелания...',
+      'submit-text':      'Отправить подтверждение',
+      'success-title':    'Спасибо!',
+      'success-sub-text': 'Ждём вас с нетерпением',
+      'success-date':     '26 сентября 2026 · Kempinski Hotel · Рига',
+    };
+
+    // Typewriter strings per language
+    const TW_RU = {
+      mansur: 'Мансур', madina: 'Мадина', family: 'Абдулмуслимовы',
+      date: '26 Сентября 2026', venue: 'Kempinski Hotel · Рига · Латвия',
+      blessing: 'Хьан некъ болх бойла,\nхьан ден хаза хуьлда',
+    };
+    const TW_EN = {
+      mansur: 'Mansur', madina: 'Madina', family: 'Abdulmuslimovy',
+      date: '26 September 2026', venue: 'Kempinski Hotel · Riga · Latvia',
+      blessing: 'May your path be bright,\nmay your days be beautiful',
+    };
+
+    let currentLang = 'ru';
+    let twStrings = TW_RU;
+
+    function applyLang(lang) {
+      currentLang = lang;
+      twStrings = lang === 'en' ? TW_EN : TW_RU;
+      const dict = lang === 'en' ? EN : RU;
+      const html_doc = document.documentElement;
+      html_doc.lang = lang;
+
+      btnRU.classList.toggle('active', lang === 'ru');
+      btnEN.classList.toggle('active', lang === 'en');
+      btnRU.setAttribute('aria-pressed', lang === 'ru');
+      btnEN.setAttribute('aria-pressed', lang === 'en');
+
+      // Update all [data-ru]/[data-en] elements
+      document.querySelectorAll('[data-ru]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.innerHTML = val;
+      });
+
+      // Static text updates via dict
+      const updates = [
+        ['#eyebrow',                     dict['eyebrow'],          'textContent'],
+        ['.details-eyebrow',             dict['details-eyebrow'],  'textContent'],
+        ['.footer-blessing',             dict['footer-blessing'],  'textContent'],
+        ['.footer-doc',                  dict['footer-doc'],       'textContent'],
+        ['.modal-eyebrow',               dict['modal-eyebrow'],    'textContent'],
+        ['.modal-title',                 dict['modal-title'],      'innerHTML'],
+        ['label[for="rsvp-name"]',       dict['name-label'] + ' <span aria-hidden="true">*</span>', 'innerHTML'],
+        ['label[for="rsvp-email"]',      dict['email-label'] + ' <span aria-hidden="true">*</span>', 'innerHTML'],
+        ['label[for="rsvp-dietary"]',    dict['dietary-label'],    'textContent'],
+        ['label[for="rsvp-message"]',    dict['message-label'],    'textContent'],
+        ['#rsvp-name',                   dict['name-placeholder'], 'placeholder'],
+        ['#rsvp-dietary',                dict['dietary-ph'],       'placeholder'],
+        ['#rsvp-message',                dict['message-ph'],       'placeholder'],
+        ['.date-sub',                    dict['date-sub'],         'textContent'],
+        ['#modal-success .success-title',dict['success-title'],    'textContent'],
+        ['#modal-success p:nth-child(3)',dict['success-sub-text'], 'textContent'],
+        ['.success-sub',                 dict['success-date'],     'textContent'],
+      ];
+
+      updates.forEach(([sel, val, prop]) => {
+        if (!val) return;
+        const el = document.querySelector(sel);
+        if (!el) return;
+        if (prop === 'placeholder') el.placeholder = val;
+        else if (prop === 'textContent') el.textContent = val;
+        else el.innerHTML = val;
+      });
+
+      // RSVP btn text
+      const rsvpSpan = document.querySelector('#rsvp-open-btn span:not([aria-hidden])');
+      if (rsvpSpan) rsvpSpan.textContent = dict['rsvp-btn-text'];
+
+      // Submit btn text
+      const submitSpan = document.querySelector('#submit-btn .btn-text');
+      if (submitSpan) {
+        const star = submitSpan.querySelector('svg');
+        submitSpan.textContent = '';
+        if (star) submitSpan.appendChild(star);
+        submitSpan.appendChild(document.createTextNode(' ' + dict['submit-text']));
+      }
+
+      // Radio labels
+      const radios = document.querySelectorAll('.radio-label');
+      if (radios[0]) radios[0].lastChild.textContent = ' ' + dict['radio-yes'];
+      if (radios[1]) radios[1].lastChild.textContent = ' ' + dict['radio-no'];
+
+      // Guests label
+      const gLabel = document.querySelector('.guest-count-field > .form-label');
+      if (gLabel) gLabel.textContent = dict['guests-label'];
+
+      // If typewriter already finished — update displayed text directly
+      const mansurEl  = document.getElementById('name-mansur');
+      const madinaEl  = document.getElementById('name-madina');
+      const familyEl  = document.getElementById('names-family');
+      const dateEl    = document.getElementById('date-text');
+      const venueEl   = document.getElementById('venue-text');
+      const blessEl   = document.getElementById('blessing-text');
+
+      if (mansurEl  && mansurEl.textContent.trim())  mansurEl.textContent  = twStrings.mansur;
+      if (madinaEl  && madinaEl.textContent.trim())  madinaEl.textContent  = twStrings.madina;
+      if (familyEl  && familyEl.textContent.trim())  familyEl.textContent  = twStrings.family;
+      if (dateEl    && dateEl.textContent.trim())    dateEl.textContent    = twStrings.date;
+      if (venueEl   && venueEl.textContent.trim())   venueEl.textContent   = twStrings.venue;
+      if (blessEl   && blessEl.textContent.trim()) {
+        blessEl.innerHTML = twStrings.blessing.replace('\n', '<br>');
+      }
+    }
+
+    btnRU.addEventListener('click', () => applyLang('ru'));
+    btnEN.addEventListener('click', () => applyLang('en'));
+  })();
+
+
+})();
+</script>
+</body>
+</html>
