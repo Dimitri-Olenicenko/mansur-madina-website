@@ -560,11 +560,19 @@ body.intro-active {
   justify-content: center;
   padding: clamp(1.5rem, 4vw, 3rem) 1rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+}
+/* Keep the card clear of the notch/status bar on phones */
+@supports (padding: max(0px)) {
+  #modal-overlay {
+    padding-top: max(clamp(1.5rem, 4vw, 3rem), env(safe-area-inset-top, 0px) + 1rem);
+    padding-bottom: max(clamp(1.5rem, 4vw, 3rem), env(safe-area-inset-bottom, 0px) + 1rem);
+  }
 }
 
 #modal-overlay.open {
@@ -578,7 +586,10 @@ body.intro-active {
   max-width: 560px;
   width: 100%;
   position: relative;
-  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+  /* Extra top padding: the close button is a 44px touch target pinned at
+     top:1rem, so the header needs to clear it (and the corner stars) rather
+     than collide with it on narrow screens. */
+  padding: clamp(4.5rem, 9vw, 5.5rem) clamp(1.5rem, 5vw, 3rem) clamp(2rem, 6vw, 3.5rem);
   transform: scale(0.88) rotate(-1deg);
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
   opacity: 0;
