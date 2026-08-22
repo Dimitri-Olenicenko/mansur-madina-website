@@ -7,7 +7,7 @@
 <title>Мансур &amp; Мадина · XXVI · IX · MMXXVI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&family=Marck+Script&display=swap" rel="stylesheet">
 
 <style>
 /* ===== CSS CUSTOM PROPERTIES ===== */
@@ -230,13 +230,15 @@ body.intro-active {
 }
 
 .names-main {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.8rem, 8vw, 5.5rem);
-  font-weight: 300;
+  /* Great Vibes is a script face: it renders visually smaller and needs
+     extra line-height for its descenders, hence the larger clamp. */
+  font-family: 'Great Vibes', 'Cormorant Garamond', cursive, serif;
+  font-size: clamp(3.4rem, 10vw, 6.8rem);
+  font-weight: 400;
   color: var(--indigo);
-  line-height: 1.05;
+  line-height: 1.25;
   display: block;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
 }
 
 .names-infinity {
@@ -248,14 +250,14 @@ body.intro-active {
 }
 
 .names-family {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
+  font-size: clamp(1.4rem, 3.6vw, 2.1rem);
   font-weight: 400;
   color: var(--indigo-m);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   display: block;
-  margin-top: 0.3em;
-  font-style: italic;
+  margin-top: 0.15em;
+  line-height: 1.5;
 }
 
 .infinity-svg-wrap {
@@ -1126,16 +1128,16 @@ body.intro-active {
   opacity: 0.7;
 }
 .quote-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
+  font-size: clamp(1.25rem, 3.2vw, 1.7rem);
   font-weight: 400;
   color: var(--indigo);
-  line-height: 1.85;
+  line-height: 2;
   font-style: normal;
   letter-spacing: 0.01em;
 }
 .quote-text em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold-d);
 }
 
@@ -1267,31 +1269,6 @@ body.intro-active {
         </span>
         <span class="names-family" id="names-family"></span>
       </div>
-
-      <!-- Infinity SVG -->
-      <div class="infinity-svg-wrap" id="infinity-svg-wrap">
-        <svg width="60" height="24" viewBox="0 0 120 50" fill="none" aria-hidden="true">
-          <path id="infinity-path"
-            d="M60 25 C50 10 20 10 10 25 C20 40 50 40 60 25 C70 10 100 10 110 25 C100 40 70 40 60 25 Z"
-            stroke="#C9A84C" stroke-width="2" fill="none"
-            style="stroke-dasharray: 220; stroke-dashoffset: 220;"
-          />
-          <!-- Нахский ромб centered -->
-          <g transform="translate(57,22)">
-            <rect x="-5" y="-5" width="6" height="6" transform="rotate(45)" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.8"/>
-            <rect x="-3" y="-3" width="2" height="2" transform="rotate(45)" fill="#C9A84C" opacity="0.6"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- Divider -->
-      <svg class="wave-divider" id="mid-border" height="14" viewBox="0 0 400 14" preserveAspectRatio="none" aria-hidden="true">
-        <path id="mid-border-path"
-          d="M0 7 Q5 1 10 7 Q15 13 20 7 Q25 1 30 7 Q35 13 40 7 Q45 1 50 7 Q55 13 60 7 Q65 1 70 7 Q75 13 80 7 Q85 1 90 7 Q95 13 100 7 Q105 1 110 7 Q115 13 120 7 Q125 1 130 7 Q135 13 140 7 Q145 1 150 7 Q155 13 160 7 Q165 1 170 7 Q175 13 180 7 Q185 1 190 7 Q195 13 200 7 Q205 1 210 7 Q215 13 220 7 Q225 1 230 7 Q235 13 240 7 Q245 1 250 7 Q255 13 260 7 Q265 1 270 7 Q275 13 280 7 Q285 1 290 7 Q295 13 300 7 Q305 1 310 7 Q315 13 320 7 Q325 1 330 7 Q335 13 340 7 Q345 1 350 7 Q355 13 360 7 Q365 1 370 7 Q375 13 380 7 Q385 1 390 7 Q395 13 400 7"
-          stroke="rgba(201,168,76,0.4)" stroke-width="1" fill="none"
-          style="stroke-dasharray: 900; stroke-dashoffset: 900;"
-        />
-      </svg>
 
       <!-- Date -->
       <div class="date-block" id="date-block">
@@ -1813,25 +1790,19 @@ body.intro-active {
       { delay: 2600, fn: () => typewriteText('name-madina', 'Мадина', 45) },
       { delay: 3100, fn: () => typewriteText('names-family', 'Абдулмуслимовы', 38) },
       { delay: 3900, fn: () => {
-          document.getElementById('infinity-svg-wrap').classList.add('visible');
-          animateBorderPath('infinity-path', 220, 1000);
-        }
-      },
-      { delay: 5100, fn: () => animateBorderPath('mid-border-path', 900, 900) },
-      { delay: 6200, fn: () => {
           const db = document.getElementById('date-block');
           db.classList.add('visible');
           typewriteText('date-text', '26 Сентября 2026', 38);
         }
       },
-      { delay: 7400, fn: () => {
+      { delay: 5100, fn: () => {
           const vb = document.getElementById('venue-block');
           vb.classList.add('visible');
           typewriteText('venue-text', 'Kempinski Hotel · Рига · Латвия', 32);
         }
       },
-      { delay: 9000, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
-      { delay: 11600, fn: () => document.getElementById('rsvp-section').classList.add('visible') },
+      { delay: 6600, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
+      { delay: 7600, fn: () => document.getElementById('rsvp-section').classList.add('visible') },
     ];
 
     seq.forEach(s => setTimeout(s.fn, s.delay));
