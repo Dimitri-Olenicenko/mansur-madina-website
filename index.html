@@ -233,10 +233,10 @@ body.intro-active {
   /* Great Vibes is a script face: it renders visually smaller and needs
      extra line-height for its descenders, hence the larger clamp. */
   font-family: 'Great Vibes', 'Cormorant Garamond', cursive, serif;
-  font-size: clamp(3.4rem, 10vw, 6.8rem);
+  font-size: clamp(2.5rem, 7vw, 4.6rem);
   font-weight: 400;
   color: var(--indigo);
-  line-height: 1.25;
+  line-height: 1.22;
   display: block;
   letter-spacing: 0.01em;
 }
@@ -251,12 +251,12 @@ body.intro-active {
 
 .names-family {
   font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
-  font-size: clamp(1.4rem, 3.6vw, 2.1rem);
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
   font-weight: 400;
   color: var(--indigo-m);
   letter-spacing: 0.04em;
   display: block;
-  margin-top: 0.15em;
+  margin-top: 0.2em;
   line-height: 1.5;
 }
 
@@ -937,8 +937,9 @@ body.intro-active {
   }
   #intro-screen { display: none !important; }
   #main-content { opacity: 1 !important; }
-  .eyebrow, .date-block, .venue-block,
+  .eyebrow, .date-block, .venue-block, .venue-art,
   .infinity-svg-wrap, .rsvp-section { opacity: 1 !important; }
+  .venue-art { transform: none !important; }
   .char { opacity: 1 !important; }
 }
 
@@ -1050,22 +1051,31 @@ body.intro-active {
   text-align: center;
 }
 
-/* ===== HEADER SYMBOLS ===== */
-.header-symbols {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(1.5rem, 5vw, 3rem);
-  margin-bottom: 1.2rem;
+/* ===== VENUE WATERCOLOUR — dissolved into the card, no frame =====
+   The source art already has soft paper edges; the mask finishes the job so
+   there is no visible boundary between the artwork and the card behind it.
+   Negative margins let it bleed to the card's padding edges. */
+.venue-art {
+  margin: calc(-1 * clamp(2.5rem, 8vw, 5rem)) calc(-1 * clamp(1.8rem, 6vw, 4rem)) 0.5rem;
   opacity: 0;
-  transition: opacity 1s ease;
+  transform: scale(1.02);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+  pointer-events: none;
 }
-.header-symbols.visible { opacity: 1; }
-.header-tower { opacity: 0.75; }
-.header-star  { opacity: 1; }
-@media (max-width: 400px) {
-  .header-tower { width: 34px; height: 56px; }
-  .header-star  { width: 52px; height: 52px; }
+.venue-art.visible { opacity: 1; transform: scale(1); }
+.venue-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;          /* paper white drops out against the cream card */
+  -webkit-mask-image:
+     radial-gradient(ellipse 78% 74% at 50% 46%, #000 46%, transparent 82%),
+     linear-gradient(180deg, transparent 0%, #000 14%, #000 74%, transparent 97%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+     radial-gradient(ellipse 78% 74% at 50% 46%, #000 46%, transparent 82%),
+     linear-gradient(180deg, transparent 0%, #000 14%, #000 74%, transparent 97%);
+          mask-composite: intersect;
 }
 
 /* ===== LANGUAGE SWITCHER ===== */
@@ -1190,74 +1200,10 @@ body.intro-active {
         <circle cx="1" cy="1" r="2" fill="#C9A84C" opacity="0.6"/>
       </svg>
 
-      <!-- ═══ HEADER SYMBOLS: Башня · Звезда · Башня ═══ -->
-      <div class="header-symbols" aria-hidden="true">
-        <!-- Левая башня Г1ала -->
-        <svg class="header-tower" width="44" height="72" viewBox="0 0 44 72" fill="none">
-          <!-- зубцы -->
-          <rect x="4"  y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <rect x="17" y="0"  width="10" height="24" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <rect x="30" y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <!-- тело башни -->
-          <rect x="2"  y="17" width="40" height="55" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <!-- горизонтальные линии кладки -->
-          <line x1="2" y1="32" x2="42" y2="32" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-          <line x1="2" y1="47" x2="42" y2="47" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-          <!-- окно -->
-          <rect x="16" y="36" width="12" height="14" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.08)"/>
-          <!-- вход -->
-          <rect x="16" y="57" width="12" height="15" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
-          <!-- маковка -->
-          <line x1="22" y1="0" x2="22" y2="-4" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-          <rect x="19" y="-6" width="6" height="2" fill="#C9A84C" opacity="0.5"/>
-        </svg>
-
-        <!-- Центральная восьмиконечная звезда Вайнахов -->
-        <svg class="header-star" width="68" height="68" viewBox="0 0 68 68" fill="none">
-          <!-- внешняя звезда -->
-          <path d="M34 4 L38.5 22 L54 12 L44 26 L62 34 L44 42 L54 56 L38.5 46 L34 64 L29.5 46 L14 56 L24 42 L6 34 L24 26 L14 12 L29.5 22 Z"
-                stroke="#C9A84C" stroke-width="1.2" fill="rgba(201,168,76,0.07)"/>
-          <!-- внутренний круг -->
-          <circle cx="34" cy="34" r="10" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.12)"/>
-          <!-- центральный ромб -->
-          <rect x="28" y="28" width="12" height="12" transform="rotate(45 34 34)" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.2)"/>
-          <!-- центральная точка -->
-          <circle cx="34" cy="34" r="2.5" fill="#C9A84C" opacity="0.8"/>
-        </svg>
-
-        <!-- Правая башня Г1ала (зеркально) -->
-        <svg class="header-tower" width="44" height="72" viewBox="0 0 44 72" fill="none" style="transform:scaleX(-1);">
-          <rect x="4"  y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <rect x="17" y="0"  width="10" height="24" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <rect x="30" y="0"  width="10" height="18" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <rect x="2"  y="17" width="40" height="55" stroke="#C9A84C" stroke-width="1" fill="none"/>
-          <line x1="2" y1="32" x2="42" y2="32" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-          <line x1="2" y1="47" x2="42" y2="47" stroke="#C9A84C" stroke-width="0.5" opacity="0.4"/>
-          <rect x="16" y="36" width="12" height="14" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.08)"/>
-          <rect x="16" y="57" width="12" height="15" rx="6" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
-          <line x1="22" y1="0" x2="22" y2="-4" stroke="#C9A84C" stroke-width="1" opacity="0.6"/>
-          <rect x="19" y="-6" width="6" height="2" fill="#C9A84C" opacity="0.5"/>
-        </svg>
+      <!-- Venue watercolour — bleeds into the card, no frame -->
+      <div class="venue-art" id="venue-art">
+        <img src="assets/kempinski-watercolour.jpg" alt="Kempinski Hotel — акварельный вид" loading="eager">
       </div>
-
-      <!-- Top луй-луй border -->
-      <svg id="top-border" class="border-svg" height="20" viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true">
-        <path id="top-border-path"
-          d="M0 10 Q5 2 10 10 Q15 18 20 10 Q25 2 30 10 Q35 18 40 10 Q45 2 50 10 Q55 18 60 10 Q65 2 70 10 Q75 18 80 10 Q85 2 90 10 Q95 18 100 10 Q105 2 110 10 Q115 18 120 10 Q125 2 130 10 Q135 18 140 10 Q145 2 150 10 Q155 18 160 10 Q165 2 170 10 Q175 18 180 10 Q185 2 190 10 Q195 18 200 10 Q205 2 210 10 Q215 18 220 10 Q225 2 230 10 Q235 18 240 10 Q245 2 250 10 Q255 18 260 10 Q265 2 270 10 Q275 18 280 10 Q285 2 290 10 Q295 18 300 10 Q305 2 310 10 Q315 18 320 10 Q325 2 330 10 Q335 18 340 10 Q345 2 350 10 Q355 18 360 10 Q365 2 370 10 Q375 18 380 10 Q385 2 390 10 Q395 18 400 10"
-          stroke="#C9A84C" stroke-width="1.5" fill="none"
-          style="stroke-dasharray: 1200; stroke-dashoffset: 1200;"
-        />
-        <!-- 8-point star decorations on border -->
-        <g transform="translate(8,10) scale(0.22)" opacity="0.6">
-          <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.15)" stroke-width="1"/>
-        </g>
-        <g transform="translate(392,10) translate(-6,-6) scale(0.22)" opacity="0.6">
-          <path d="M28 4 L32 20 L44 12 L36 24 L52 28 L36 32 L44 44 L32 36 L28 52 L24 36 L12 44 L20 32 L4 28 L20 24 L12 12 L24 20 Z" stroke="#C9A84C" fill="rgba(201,168,76,0.15)" stroke-width="1"/>
-        </g>
-      </svg>
-
-      <!-- Eyebrow -->
-      <p class="eyebrow" id="eyebrow">Нохчийн Никъ</p>
 
       <!-- Names block -->
       <div class="names-block">
@@ -1784,8 +1730,7 @@ body.intro-active {
 
     /* Sequence definitions */
     const seq = [
-      { delay: 200,  fn: () => animateBorderPath('top-border-path', 1200, 1400) },
-      { delay: 1700, fn: () => { revealEyebrow(); document.querySelector('.header-symbols') && document.querySelector('.header-symbols').classList.add('visible'); } },
+      { delay: 200,  fn: () => { const va = document.getElementById('venue-art'); va && va.classList.add('visible'); } },
       { delay: 2200, fn: () => typewriteText('name-mansur', 'Мансур', 45) },
       { delay: 2600, fn: () => typewriteText('name-madina', 'Мадина', 45) },
       { delay: 3100, fn: () => typewriteText('names-family', 'Абдулмуслимовы', 38) },
@@ -1823,11 +1768,6 @@ body.intro-active {
         path.style.strokeDashoffset = '0';
       });
     });
-  }
-
-  /* Fade in eyebrow */
-  function revealEyebrow() {
-    document.getElementById('eyebrow').classList.add('visible');
   }
 
   /* Typewriter with newline support */
@@ -2200,7 +2140,6 @@ body.intro-active {
 
       // Static text updates via dict
       const updates = [
-        ['#eyebrow',                     dict['eyebrow'],          'textContent'],
         ['.details-eyebrow',             dict['details-eyebrow'],  'textContent'],
         ['.footer-blessing',             dict['footer-blessing'],  'textContent'],
         ['.footer-doc',                  dict['footer-doc'],       'textContent'],
