@@ -1137,6 +1137,28 @@ body.intro-active {
 .quote-ornament {
   opacity: 0.7;
 }
+/* Ballroom watercolour above the quote — same dissolve treatment as the
+   venue art in the card: multiply drops the paper white, the mask feathers
+   the edges so it reads as part of the page, not a placed photo. */
+.quote-art {
+  width: min(100%, 560px);
+  margin: -1.5rem auto -0.5rem;
+  pointer-events: none;
+}
+.quote-art img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  -webkit-mask-image:
+     radial-gradient(ellipse 80% 76% at 50% 50%, #000 44%, transparent 84%),
+     linear-gradient(180deg, transparent 0%, #000 13%, #000 84%, transparent 99%);
+  -webkit-mask-composite: source-in;
+          mask-image:
+     radial-gradient(ellipse 80% 76% at 50% 50%, #000 44%, transparent 84%),
+     linear-gradient(180deg, transparent 0%, #000 13%, #000 84%, transparent 99%);
+          mask-composite: intersect;
+}
 .quote-text {
   font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
   font-size: clamp(1.25rem, 3.2vw, 1.7rem);
@@ -1262,12 +1284,10 @@ body.intro-active {
   <!-- POETIC QUOTE -->
   <section class="quote-section" aria-label="Цитата">
     <div class="quote-inner">
-      <div class="quote-ornament" aria-hidden="true">
-        <svg width="48" height="20" viewBox="0 0 96 20" fill="none">
-          <path d="M0 10 Q6 2 12 10 Q18 18 24 10 Q30 2 36 10 Q42 18 48 10 Q54 2 60 10 Q66 18 72 10 Q78 2 84 10 Q90 18 96 10" stroke="#C9A84C" stroke-width="1.2" fill="none" opacity="0.6"/>
-        </svg>
+      <div class="quote-art" aria-hidden="true">
+        <img src="assets/ballroom-watercolour.jpg" alt="" loading="lazy">
       </div>
-      <blockquote class="quote-text" data-ru="<em>Мансур и Мадина приглашают вас разделить этот момент —<br>не просто как гостей, а как свидетелей начала,<br>когда два рода становятся одним.</em>" data-en="<em>Mansur and Madina invite you to share this moment —<br>not as spectators, but as witnesses to the beginning,<br>when two families become one.</em>">
+      <blockquote class="quote-text" data-ru="<em>Мансур и Мадина приглашают вас разделить этот момент —<br>не просто как гостей, а как свидетелей начала,<br>когда два рода становятся одним.</em>" data-en="<em>Mansur and Madina invite you to share this moment —<br>not merely as guests, but as witnesses to the beginning,<br>when two families become one.</em>">
         <em>Мансур и Мадина приглашают вас разделить этот момент —<br>не просто как гостей, а как свидетелей начала,<br>когда два рода становятся одним.</em>
       </blockquote>
       <div class="quote-ornament" aria-hidden="true" style="transform:scaleX(-1);">
