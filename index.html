@@ -233,10 +233,13 @@ body.intro-active {
   /* Great Vibes is a script face: it renders visually smaller and needs
      extra line-height for its descenders, hence the larger clamp. */
   font-family: 'Great Vibes', 'Cormorant Garamond', cursive, serif;
-  font-size: clamp(2.5rem, 7vw, 4.6rem);
+  /* Great Vibes has a small x-height, so it reads smaller than its nominal
+     size — the mobile floor is raised so the names stay the largest element
+     on a narrow screen. */
+  font-size: clamp(3.6rem, 13vw, 5.2rem);
   font-weight: 400;
   color: var(--indigo);
-  line-height: 1.22;
+  line-height: 1.18;
   display: block;
   letter-spacing: 0.01em;
 }
@@ -244,20 +247,21 @@ body.intro-active {
 .names-infinity {
   display: inline-block;
   color: var(--gold);
-  font-size: 0.75em;
+  font-size: 0.5em;
   vertical-align: middle;
   padding: 0 0.15em;
+  opacity: 0.85;
 }
 
 .names-family {
   font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
-  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  font-size: clamp(1.4rem, 4.6vw, 1.8rem);
   font-weight: 400;
   color: var(--indigo-m);
   letter-spacing: 0.04em;
   display: block;
-  margin-top: 0.2em;
-  line-height: 1.5;
+  margin-top: 0.25em;
+  line-height: 1.45;
 }
 
 .infinity-svg-wrap {
@@ -1068,14 +1072,11 @@ body.intro-active {
   height: auto;
   display: block;
   mix-blend-mode: multiply;          /* paper white drops out against the cream card */
-  -webkit-mask-image:
-     radial-gradient(ellipse 78% 74% at 50% 46%, #000 46%, transparent 82%),
-     linear-gradient(180deg, transparent 0%, #000 14%, #000 74%, transparent 97%);
-  -webkit-mask-composite: source-in;
-          mask-image:
-     radial-gradient(ellipse 78% 74% at 50% 46%, #000 46%, transparent 82%),
-     linear-gradient(180deg, transparent 0%, #000 14%, #000 74%, transparent 97%);
-          mask-composite: intersect;
+  /* Single radial mask only. Multi-layer masks with mask-composite are
+     unreliable on iOS Safari (-webkit-mask-composite uses a different
+     keyword set and can blank the image entirely), so one gradient it is. */
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 48%, #000 52%, transparent 88%);
+          mask-image: radial-gradient(ellipse 82% 78% at 50% 48%, #000 52%, transparent 88%);
 }
 
 /* ===== LANGUAGE SWITCHER ===== */
@@ -1150,14 +1151,9 @@ body.intro-active {
   height: auto;
   display: block;
   mix-blend-mode: multiply;
-  -webkit-mask-image:
-     radial-gradient(ellipse 80% 76% at 50% 50%, #000 44%, transparent 84%),
-     linear-gradient(180deg, transparent 0%, #000 13%, #000 84%, transparent 99%);
-  -webkit-mask-composite: source-in;
-          mask-image:
-     radial-gradient(ellipse 80% 76% at 50% 50%, #000 44%, transparent 84%),
-     linear-gradient(180deg, transparent 0%, #000 13%, #000 84%, transparent 99%);
-          mask-composite: intersect;
+  /* Single-layer mask for iOS Safari compatibility — see .venue-art img */
+  -webkit-mask-image: radial-gradient(ellipse 84% 80% at 50% 50%, #000 50%, transparent 88%);
+          mask-image: radial-gradient(ellipse 84% 80% at 50% 50%, #000 50%, transparent 88%);
 }
 .quote-text {
   font-family: 'Marck Script', 'Cormorant Garamond', cursive, serif;
