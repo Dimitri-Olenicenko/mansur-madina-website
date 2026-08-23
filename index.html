@@ -1780,21 +1780,31 @@ body.intro-active {
   function initMainAnimations() {
 
     /* Sequence definitions */
+
+    /* Intro typewriter must respect the language the visitor has chosen.
+       twStrings is declared later in another closure, so read the active
+       language button instead of depending on it. */
+    function twNow(ru, en) {
+      var b = document.querySelector('.lang-btn.active');
+      var isEN = b && /EN/i.test(b.textContent || '');
+      return isEN ? en : ru;
+    }
+
     const seq = [
       { delay: 200,  fn: () => { const va = document.getElementById('venue-art'); va && va.classList.add('visible'); } },
-      { delay: 2200, fn: () => typewriteText('name-mansur', 'Мансур', 45) },
-      { delay: 2600, fn: () => typewriteText('name-madina', 'Мадина', 45) },
-      { delay: 3100, fn: () => typewriteText('names-family', 'Абдулмуслимовы', 38) },
+      { delay: 2200, fn: () => typewriteText('name-mansur', twNow('Мансур','Mansur'), 45) },
+      { delay: 2600, fn: () => typewriteText('name-madina', twNow('Мадина','Madina'), 45) },
+      { delay: 3100, fn: () => typewriteText('names-family', twNow('Абдулмуслимовы','Abdulmuslimovy'), 38) },
       { delay: 3900, fn: () => {
           const db = document.getElementById('date-block');
           db.classList.add('visible');
-          typewriteText('date-text', '26 Сентября 2026', 38);
+          typewriteText('date-text', twNow('26 Сентября 2026','26 September 2026'), 38);
         }
       },
       { delay: 5100, fn: () => {
           const vb = document.getElementById('venue-block');
           vb.classList.add('visible');
-          typewriteText('venue-text', 'Kempinski Hotel · Рига · Латвия', 32);
+          typewriteText('venue-text', twNow('Kempinski Hotel · Рига · Латвия','Kempinski Hotel · Riga · Latvia'), 32);
         }
       },
       { delay: 6600, fn: () => animateBorderPath('bottom-border-path', 1200, 1400) },
