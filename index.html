@@ -803,6 +803,48 @@ body.intro-active {
 .guest-count-field { display: block; }
 .guest-count-field.hidden { display: none; }
 
+/* Per-guest name fields — one row per additional guest, so the organisers
+   get a real attendee list rather than just a headcount. */
+.guest-names-field { display: block; }
+.guest-names-field.hidden { display: none; }
+
+.guest-names-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.guest-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.guest-name-num {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 50%;
+}
+
+.guest-name-row .form-input { flex: 1 1 auto; min-width: 0; }
+
+.guest-names-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.55rem, 1.6vw, 0.62rem);
+  letter-spacing: 0.08em;
+  color: rgba(248,249,240,0.4);
+  margin-top: 0.6rem;
+  line-height: 1.5;
+}
+
 /* Submit button */
 .submit-btn {
   width: 100%;
@@ -1528,6 +1570,12 @@ body.intro-active {
         <input type="hidden" id="rsvp-guests" name="guests" value="1">
       </div>
 
+      <div class="form-group guest-names-field hidden" id="guest-names-field">
+        <label class="form-label" id="guest-names-label">Имена гостей</label>
+        <div class="guest-names-list" id="guest-names-list"></div>
+        <p class="guest-names-hint" id="guest-names-hint">Вы — гость №1. Укажите имена остальных, чтобы мы подготовили рассадку.</p>
+      </div>
+
       <div class="form-group">
         <label class="form-label" for="rsvp-dietary">Пищевые предпочтения / аллергии</label>
         <textarea class="form-textarea" id="rsvp-dietary" name="dietary" placeholder="Например: вегетарианское, без глютена..." rows="2"></textarea>
@@ -1887,6 +1935,8 @@ body.intro-active {
   const guestBtns  = document.querySelectorAll('.guest-btn');
   const guestHidden= document.getElementById('rsvp-guests');
   const attendRadios = document.querySelectorAll('input[name="attending"]');
+  const guestNamesField = document.getElementById('guest-names-field');
+  const guestNamesList  = document.getElementById('guest-names-list');
 
   let selectedGuests = 1;
 
@@ -1919,6 +1969,61 @@ body.intro-active {
     if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
   });
 
+  /* Per-guest name fields.
+     The count includes the person filling the form, so they are guest 1 and we
+     only ask for guests 2..N — nobody should have to type their own name twice.
+     Anything already typed survives a change of count. */
+  const GUEST_NAME_TXT = {
+    ru: { label: 'Имена гостей', ph: 'Имя гостя ',
+          hint: 'Вы — гость №1. Укажите имена остальных, чтобы мы подготовили рассадку.' },
+    en: { label: 'Guest names', ph: 'Guest ',
+          hint: 'You are guest 1. Add the others so we can plan the seating.' },
+  };
+
+  /* applyLang() sets <html lang>, and unlike the language switcher's own
+     `currentLang` it is readable from here — that variable lives inside the
+     initLang IIFE and is not in scope in this block. */
+  function isEN() { return document.documentElement.lang === 'en'; }
+
+  function guestNameTxt() { return GUEST_NAME_TXT[isEN() ? 'en' : 'ru']; }
+
+  function renderGuestNames() {
+    if (!guestNamesList) return;
+    const attending = rsvpForm.querySelector('input[name="attending"]:checked');
+    const show = attending && attending.value === 'yes' && selectedGuests > 1;
+
+    const kept = [...guestNamesList.querySelectorAll('.guest-name-input')].map(i => i.value);
+    guestNamesList.innerHTML = '';
+
+    if (!show) { guestNamesField.classList.add('hidden'); return; }
+
+    const t = guestNameTxt();
+    for (let n = 2; n <= selectedGuests; n++) {
+      const row = document.createElement('div');
+      row.className = 'guest-name-row';
+
+      const num = document.createElement('span');
+      num.className = 'guest-name-num';
+      num.setAttribute('aria-hidden', 'true');
+      num.textContent = n;
+
+      const input = document.createElement('input');
+      input.className = 'form-input guest-name-input';
+      input.type = 'text';
+      input.id = 'rsvp-guest-' + n;
+      input.name = 'guest_' + n;
+      input.placeholder = t.ph + n;
+      input.setAttribute('aria-label', t.ph + n);
+      input.autocomplete = 'off';
+      input.value = kept[n - 2] || '';
+
+      row.appendChild(num);
+      row.appendChild(input);
+      guestNamesList.appendChild(row);
+    }
+    guestNamesField.classList.remove('hidden');
+  }
+
   /* Toggle guest count field based on attending */
   attendRadios.forEach(radio => {
     radio.addEventListener('change', () => {
@@ -1927,6 +2032,7 @@ body.intro-active {
       } else if (radio.value === 'no' && radio.checked) {
         guestField.classList.add('hidden');
       }
+      renderGuestNames();
     });
   });
 
@@ -1938,6 +2044,7 @@ body.intro-active {
       btn.setAttribute('aria-pressed', 'true');
       selectedGuests = parseInt(btn.dataset.count, 10);
       guestHidden.value = selectedGuests;
+      renderGuestNames();
     });
   });
 
@@ -1985,8 +2092,23 @@ body.intro-active {
     const attending = attending_radio.value === 'yes';
     const guests    = attending ? selectedGuests : 0;
 
+    /* Collect the per-guest names. Guest 1 is the person filling the form. */
+    const guestInputs = attending
+      ? [...guestNamesList.querySelectorAll('.guest-name-input')]
+      : [];
+    const blank = guestInputs.find(i => !i.value.trim());
+    if (blank) {
+      formError.textContent = isEN()
+        ? 'Please enter a name for every guest.'
+        : 'Пожалуйста, укажите имя каждого гостя.';
+      formError.classList.add('visible');
+      blank.focus();
+      return;
+    }
+    const guestNames = [name, ...guestInputs.map(i => i.value.trim())];
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      formError.textContent = currentLang === 'en' ? 'Please enter a valid email address.' : 'Пожалуйста, введите корректный email.';
+      formError.textContent = isEN() ? 'Please enter a valid email address.' : 'Пожалуйста, введите корректный email.';
       formError.classList.add('visible');
       document.getElementById('rsvp-email').focus();
       return;
@@ -2005,6 +2127,11 @@ body.intro-active {
       email,
       attending: attending ? 'Придёт' : 'Не придёт',
       guests: attending ? guests : 0,
+      /* Numbered attendee list, so the organisers can seat by name and not
+         just by headcount. Guest 1 is always the person who submitted. */
+      guest_names: attending
+        ? guestNames.map((n, i) => `${i + 1}. ${n}`).join('\n')
+        : '—',
       dietary: dietary || '—',
       message: message || '—',
     };
@@ -2069,6 +2196,10 @@ body.intro-active {
         guestBtns[0].classList.add('active');
         selectedGuests = 1;
         guestHidden.value = 1;
+        guestBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        guestBtns[0].setAttribute('aria-pressed', 'true');
+        guestNamesList.innerHTML = '';
+        guestNamesField.classList.add('hidden');
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
       }, 600);
@@ -2124,6 +2255,8 @@ body.intro-active {
       'radio-yes':        'Yes, with pleasure!',
       'radio-no':         'Unfortunately, I cannot',
       'guests-label':     'Number of guests (including yourself)',
+      'guest-names-label': 'Guest names',
+      'guest-names-hint':  'You are guest 1. Add the others so we can plan the seating.',
       'dietary-label':    'Dietary preferences / allergies',
       'dietary-ph':       'E.g.: vegetarian, gluten-free...',
       'message-label':    'Message to the couple',
@@ -2158,6 +2291,8 @@ body.intro-active {
       'radio-yes':        'Да, с радостью!',
       'radio-no':         'К сожалению, не смогу',
       'guests-label':     'Количество гостей (включая вас)',
+      'guest-names-label': 'Имена гостей',
+      'guest-names-hint':  'Вы — гость №1. Укажите имена остальных, чтобы мы подготовили рассадку.',
       'dietary-label':    'Пищевые предпочтения / аллергии',
       'dietary-ph':       'Например: вегетарианское, без глютена...',
       'message-label':    'Пожелание молодожёнам',
@@ -2249,6 +2384,17 @@ body.intro-active {
       // Guests label
       const gLabel = document.querySelector('.guest-count-field > .form-label');
       if (gLabel) gLabel.textContent = dict['guests-label'];
+
+      // Guest-name block: label, hint, and every rendered input's placeholder
+      const gnLabel = document.getElementById('guest-names-label');
+      if (gnLabel) gnLabel.textContent = dict['guest-names-label'];
+      const gnHint = document.getElementById('guest-names-hint');
+      if (gnHint) gnHint.textContent = dict['guest-names-hint'];
+      const gnPrefix = lang === 'en' ? 'Guest ' : 'Имя гостя ';
+      document.querySelectorAll('.guest-name-input').forEach((input, i) => {
+        input.placeholder = gnPrefix + (i + 2);
+        input.setAttribute('aria-label', gnPrefix + (i + 2));
+      });
 
       // If typewriter already finished — update displayed text directly
       const mansurEl  = document.getElementById('name-mansur');
