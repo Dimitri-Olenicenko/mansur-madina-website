@@ -55,6 +55,9 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  /* Must match body. With the rule on body alone, mobile engines make the body
+     the scroll container and position:fixed drifts while scrolling. */
+  overflow-x: hidden;
 }
 
 body {
@@ -1159,8 +1162,10 @@ body.intro-active {
 /* ===== LANGUAGE SWITCHER ===== */
 .lang-switcher {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  /* env() resolves to 0 without viewport-fit=cover, so this is a no-op on
+     phones without a notch and correct on those with one. */
+  top: calc(1rem + env(safe-area-inset-top, 0px));
+  right: calc(1rem + env(safe-area-inset-right, 0px));
   z-index: 900;
   display: flex;
   align-items: center;
@@ -1169,8 +1174,14 @@ body.intro-active {
   border: 1px solid rgba(201,168,76,0.3);
   border-radius: 2rem;
   padding: 0.3rem 0.7rem;
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);   /* iOS still needs the prefix */
+          backdrop-filter: blur(8px);
   box-shadow: 0 2px 12px rgba(28,40,71,0.1);
+  /* Own compositor layer: the pill then tracks the viewport during scroll
+     instead of being repainted a frame late, which is what made it slide. */
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  will-change: transform;
 }
 .lang-btn {
   background: none;
@@ -1637,20 +1648,49 @@ body.intro-active {
   /* ================================================================
      1. CANVAS PARTICLE INTRO
      ================================================================ */
+  /* Scoped so the early returns below (reduced motion, no canvas) exit the
+     intro only. They used to return out of the whole IIFE, which skipped the
+     modal, the RSVP form and the language switcher — the page rendered but
+     nothing on it worked. */
+  function initIntro() {
   const introScreen = document.getElementById('intro-screen');
   const introCanvas = document.getElementById('intro-canvas');
   const introCenter = document.getElementById('intro-center');
   const introSkip   = document.getElementById('intro-skip');
   const mainContent = document.getElementById('main-content');
 
-  if (reducedMotion) {
-    introScreen.style.display = 'none';
-    mainContent.classList.add('visible');
+  /* The one way the page becomes readable. Must never depend on an animation. */
+  let introDone = false;
+  function revealNow() {
+    if (introDone) return;
+    introDone = true;
+    if (introScreen) {
+      introScreen.classList.add('fade-out', 'gone');
+      introScreen.style.display = 'none';
+    }
+    if (mainContent) mainContent.classList.add('visible');
     document.body.classList.remove('intro-active');
-    return initMainAnimations();
+    try { initMainAnimations(); } catch (e) {}
   }
 
-  const ctx = introCanvas.getContext('2d');
+  /* Last line of defence: whatever happens below — a thrown error, a canvas
+     that never paints, rAF paused because the page opened in the background —
+     the invitation is on screen well before this fires. */
+  var HARD_FAILSAFE_MS = 9000;
+  setTimeout(revealNow, HARD_FAILSAFE_MS);
+
+  if (reducedMotion) {
+    return revealNow();
+  }
+
+  /* No 2d context (canvas disabled, low memory, some privacy modes): skip the
+     intro rather than throwing on the first ctx.* call and killing the script. */
+  var ctx = null;
+  try { ctx = introCanvas && introCanvas.getContext && introCanvas.getContext('2d'); }
+  catch (e) { ctx = null; }
+  if (!ctx) {
+    return revealNow();
+  }
   let W, H, particles = [], animFrame;
   let introPhase = 'particles'; // 'particles' | 'arranging' | 'done'
   let phaseTime = 0;
@@ -1807,19 +1847,31 @@ body.intro-active {
   /* Monogram appears mid-animation */
   setTimeout(() => introCenter.classList.add('visible'), 1800);
 
+  /* rAF does not advance while the page is hidden, so the intro can still be
+     sitting there when someone switches back to the tab. Timers do run. */
+  setTimeout(triggerIntroExit, INTRO_DURATION + 2000);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) setTimeout(triggerIntroExit, 1200);
+  });
+
   function triggerIntroExit() {
-    cancelAnimationFrame(animFrame);
+    if (introDone) return;
+    introDone = true;
+    try { cancelAnimationFrame(animFrame); } catch (e) {}
     introScreen.classList.add('fade-out');
     mainContent.classList.add('visible');
     document.body.classList.remove('intro-active');
     setTimeout(() => {
       introScreen.classList.add('gone');
-      ctx.clearRect(0, 0, W, H);
+      try { ctx.clearRect(0, 0, W, H); } catch (e) {}
     }, 1300);
-    initMainAnimations();
+    try { initMainAnimations(); } catch (e) {}
   }
 
   introSkip.addEventListener('click', triggerIntroExit);
+  }
+
+  initIntro();
 
 
   /* ================================================================
